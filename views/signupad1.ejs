@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>signupad</title>
+    <style>
+        /* Style the page header */
+        header {
+            background-color: #aB7442;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            font-size: 36px;
+        }
+
+        /* Style the schedule section */
+        .schedule {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Style the table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            background-color: white;
+            border-radius: 10px;
+            /* Rounded corners for the table */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            /* Box shadow for depth */
+        }
+
+        /* Style table headers */
+        thead th {
+            background-color: #aB7442;
+            /* Header background color */
+            color: white;
+            font-weight: bold;
+            padding: 10px 16px;
+            text-align: left;
+        }
+
+        /* Style table rows */
+        tbody tr {
+            border-bottom: 1px solid #ccc;
+            transition: background-color 0.2s ease;
+            /* Smooth background color transition */
+        }
+
+        /* Style even rows with a background color */
+        tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /* Style table cells */
+        td {
+            padding: 10px 16px;
+            color: #333;
+        }
+
+        /* Center the table */
+        table {
+            margin: 0 auto;
+        }
+
+        /* Style the table hover effect */
+        tbody tr:hover {
+            background-color: #e0e0e0;
+            /* Hover background color */
+            cursor: pointer;
+            transform: scale(1.005);
+            /* Slight scale effect on hover */
+        }
+
+        h1 {
+            color: white;
+        }
+
+        /* CSS for edit and delete button animation */
+        .edit-btn,
+        .delete-btn {
+            transition: transform 0.3s ease;
+            /* Animation property: transform with 0.3s duration */
+        }
+
+        /* Scale animation for edit button when clicked */
+        .edit-btn:active {
+            transform: scale(0.95);
+            /* Slightly scale down the button when clicked */
+        }
+
+        /* Rotate animation for delete button when clicked */
+        .delete-btn:active {
+            transform: rotate(360deg);
+            /* Rotate the button 360 degrees when clicked */
+        }
+    </style>
+</head>
+<%- include('layout/header.ejs') %>
+<body>
+    <%- include('layout/header.ejs') %>
+
+    <h1>Records Table</h1>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th><i class="fas fa-user"></i> Name</th>
+                    <th><i class="fas fa-envelope"></i> Email</th>
+                    <th><i class="fas fa-lock"></i> Password</th>
+                    <th><i class="fas fa-lock"></i> Confirm Password</th>
+                    <th><i class="fas fa-lock"></i> Security Answer</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="recordsTableBody">
+                <% if (users && users.length > 0) { %>
+                    <% users.forEach(user => { %>
+                        <tr>
+                            <td><%= user.name %></td>
+                            <td><%= user.email %></td>
+                            <td>********</td>
+                            <td>********</td>
+                            <td><%= user.securityAnswer %></td>
+                            <td>
+                                <button class="edit-btn" onclick="toggleEditForm('editForm<%= user._id %>')">Edit</button>
+                                <button class="delete-btn" onclick="deleteRecord('<%= user._id %>')">Delete</button>
+                            </td>
+                        </tr>
+                        <tr id="editForm<%= user._id %>" style="display: none;">
+                            <td colspan="6">
+                                <h2>Edit Record</h2>
+                                <form id="updateForm<%= user._id %>">
+                                    <input type="text" id="editName<%= user._id %>" placeholder="Name" value="<%= user.name %>" required>
+                                    <input type="email" id="editEmail<%= user._id %>" placeholder="Email" value="<%= user.email %>" required>
+                                    <input type="password" id="editPassword<%= user._id %>" placeholder="Password" required>
+                                    <input type="password" id="editConfirmPassword<%= user._id %>" placeholder="Confirm Password" required>
+                                    <input type="text" id="editSecurityAnswer<%= user._id %>" placeholder="Security Answer" value="<%= user.securityAnswer %>" required>
+                                    <button type="button" onclick="editRecord('<%= user._id %>')">Update</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <% }) %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="6">No users found</td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+
+    <%- include('layout/footer.ejs') %>
+
+    <script>
+        function toggleEditForm(formId) {
+            const form = document.getElementById(formId);
+            if (form) {
+                form.style.display = form.style.display === 'none' ? 'block' : 'none';
+            }
+        }
+
+        function editRecord(userId) {
+            const updatedName = document.getElementById(`editName${userId}`).value;
+            const updatedEmail = document.getElementById(`editEmail${userId}`).value;
+            const updatedPassword = document.getElementById(`editPassword${userId}`).value;
+            const updatedConfirmPassword = document.getElementById(`editConfirmPassword${userId}`).value;
+            const updatedSecurityAnswer = document.getElementById(`editSecurityAnswer${userId}`).value;
+
+            const updatedData = {
+                name: updatedName,
+                email: updatedEmail,
+                password: updatedPassword,
+                confirmPassword: updatedConfirmPassword,
+                securityAnswer: updatedSecurityAnswer
+            };
+
+            fetch(`/signupad1/edit/${userId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(updatedData)
+            })
+                .then(response => {
+                    if (response.ok) {
+                        document.getElementById(`name${userId}`).innerText = updatedName;
+                        document.getElementById(`email${userId}`).innerText = updatedEmail;
+                        document.getElementById(`password${userId}`).innerText = '********';
+                        document.getElementById(`confirmPassword${userId}`).innerText = '********';
+                        document.getElementById(`securityAnswer${userId}`).innerText = updatedSecurityAnswer;
+
+                        toggleEditForm(`editForm${userId}`);
+                    } else {
+                        console.error('Failed to update record');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error updating record:', error);
+                });
+        }
+
+        function deleteRecord(userId) {
+            const confirmed = confirm('Are you sure you want to delete this record?');
+            if (confirmed) {
+                fetch('/signupad1/delete/' + userId, {
+                    method: 'DELETE',
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            window.location.reload();
+                        } else {
+                            alert('Failed to delete the record.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error deleting record:', error);
+                        alert('An error occurred while deleting the record.');
+                    });
+            }
+        }
+    </script>
+</body>
+
+
+
+
+</html>

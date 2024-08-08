@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feedback</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    h2 {
+      color: #555;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .actions button {
+      padding: 5px 10px;
+      cursor: pointer;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+
+    .actions button.editBtn {
+      background-color: #008CBA;
+    }
+
+    .actions button.deleteBtn {
+      background-color: #AB7442;
+    }
+
+    .actions button:hover {
+      opacity: 0.8;
+    }
+
+    .editForm {
+      background-color: #f2f2f2;
+    }
+
+    .editForm form {
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+
+    .editForm form label {
+      font-weight: bold;
+    }
+
+    .editForm form input[type="text"],
+    .editForm form input[type="email"],
+    .editForm form select,
+    .editForm form textarea {
+      width: calc(100% - 20px);
+      padding: 5px;
+      margin: 5px 0;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    .editForm form button[type="submit"],
+    .editForm form button[type="button"] {
+      padding: 10px 20px;
+      cursor: pointer;
+      background-color: #AB7442;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+
+    .editForm form button.cancelBtn {
+      background-color: #f44336;
+    }
+
+    .editForm form button[type="submit"]:hover,
+    .editForm form button[type="button"]:hover {
+      opacity: 0.8;
+    }
+
+    #toggleAddFeedbackForm {
+      padding: 10px 20px;
+      cursor: pointer;
+      background-color: #AB7442;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+
+    #toggleAddFeedbackForm:hover {
+      opacity: 0.8;
+    }
+
+    #addFeedbackForm {
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    #addFeedbackForm input[type="text"],
+    #addFeedbackForm input[type="email"],
+    #addFeedbackForm select,
+    #addFeedbackForm textarea {
+      width: calc(100% - 20px);
+      padding: 5px;
+      margin: 5px 0;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    #addFeedbackForm button[type="submit"] {
+      padding: 10px 20px;
+      cursor: pointer;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+
+    #addFeedbackForm button[type="submit"]:hover {
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+  <h1>Feedbacks</h1>
+  <button id="toggleAddFeedbackForm">Add Feedback</button>
+  <form id="addFeedbackForm" action="/feedback/add" method="POST" style="display: none;">
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" name="name" required><br><br>
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email" required><br><br>
+    <label for="mobile">Mobile:</label><br>
+    <input type="text" id="mobile" name="mobile" required><br><br>
+    <label for="gender">Gender:</label><br>
+    <select id="gender" name="gender">
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+    </select><br><br>
+    <label for="note">Note:</label><br>
+    <textarea id="note" name="note" required></textarea><br><br>
+    <button type="submit">Add Feedback</button>
+  </form>
+  <h2>Feedbacks List</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Mobile</th>
+        <th>Gender</th>
+        <th>Note</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% feedbacks.forEach(feedback => { %>
+      <tr>
+        <td><%= feedback.name %></td>
+        <td><%= feedback.email %></td>
+        <td><%= feedback.mobile %></td>
+        <td><%= feedback.gender %></td>
+        <td><%= feedback.note %></td>
+        <td class="actions">
+          <button class="editBtn" data-id="<%= feedback._id %>">Edit</button>
+          <button class="deleteBtn" data-id="<%= feedback._id %>">Delete</button>
+        </td>
+      </tr>
+      <tr class="editForm" id="editForm_<%= feedback._id %>" style="display: none;">
+        <td colspan="6">
+          <h2>Edit Feedback</h2>
+          <form action="/feedback/edit/<%= feedback._id %>" method="POST">
+            <label for="name">Name:</label><br>
+            <input type="text" id="editName_<%= feedback._id %>" name="name" value="<%= feedback.name %>" required><br><br>
+            <label for="email">Email:</label><br>
+            <input type="email" id="editEmail_<%= feedback._id %>" name="email" value="<%= feedback.email %>" required><br><br>
+            <label for="mobile">Mobile:</label><br>
+            <input type="text" id="editMobile_<%= feedback._id %>" name="mobile" value="<%= feedback.mobile %>" required><br><br>
+            <label for="gender">Gender:</label><br>
+            <select id="editGender_<%= feedback._id %>" name="gender">
+              <option value="male" <%= feedback.gender === 'male' ? 'selected' : '' %>>Male</option>
+              <option value="female" <%= feedback.gender === 'female' ? 'selected' : '' %>>Female</option>
+            </select><br><br>
+            <label for="note">Note:</label><br>
+            <textarea id="editNote_<%= feedback._id %>" name="note" required><%= feedback.note %></textarea><br><br>
+            <button type="submit">Save Changes</button>
+            <button class="cancelBtn" data-id="<%= feedback._id %>" type="button">Cancel</button>
+          </form>
+        </td>
+      </tr>
+      <% }); %>
+    </tbody>
+  </table>
+
+  <script>
+    const editBtns = document.querySelectorAll('.editBtn');
+    const cancelBtns = document.querySelectorAll('.cancelBtn');
+    const deleteBtns = document.querySelectorAll('.deleteBtn');
+    const toggleAddFeedbackFormBtn = document.getElementById('toggleAddFeedbackForm');
+    const addFeedbackForm = document.getElementById('addFeedbackForm');
+
+    toggleAddFeedbackFormBtn.addEventListener('click', () => {
+      addFeedbackForm.style.display = (addFeedbackForm.style.display === 'none') ? 'block' : 'none';
+    });
+
+    editBtns.forEach(editBtn => {
+      editBtn.addEventListener('click', () => {
+        const feedbackId = editBtn.getAttribute('data-id');
+        const editForm = document.getElementById(`editForm_${feedbackId}`);
+        editForm.style.display = 'table-row';
+      });
+    });
+
+    cancelBtns.forEach(cancelBtn => {
+      cancelBtn.addEventListener('click', () => {
+        const feedbackId = cancelBtn.getAttribute('data-id');
+        const editForm = document.getElementById(`editForm_${feedbackId}`);
+        editForm.style.display = 'none';
+      });
+    });
+
+    deleteBtns.forEach(deleteBtn => {
+      deleteBtn.addEventListener('click', async () => {
+        const feedbackId = deleteBtn.getAttribute('data-id');
+        try {
+          const response = await fetch(`/feedback/delete/${feedbackId}`, {
+            method: 'POST'
+          });
+          if (response.ok) {
+            window.location.reload();
+          } else {
+            console.error('Error deleting feedback:', response.statusText);
+          }
+        } catch (error) {
+          console.error('Error deleting feedback:', error);
+        }
+      });
+    });
+  </script>
+</body>
+</html>

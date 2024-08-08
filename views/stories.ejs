@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>
+        stories
+    </title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link href="/img/bg4.png" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=DM+Serif+Display:ital@1&family=Lilita+One&family=Poppins:wght@300;600&family=Rubik:wght@300&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <%- include('layout/header.ejs') %>
+        <div class="container">
+            <div class="section-title text-center">
+                <h1 class="display-5 mb-5">Stories</h1>
+            </div>
+
+            <!-- Button to open the upload form -->
+            <div class="text-center">
+                <button class="btn btn-primary" onclick="toggleShareForm()">Write Your Story</button>
+            </div>
+            <!-- Share form container initially hidden -->
+            <div class="container" id="share-form-container" style="display: none;">
+                <div class="overlay" id="overlay"></div>
+                <div class="popup" id="popup">
+                    <div class="post-container">
+                        <h2 class="text-center">Share Your Story</h2>
+                        <form id="story-form" method="post" action="/stories" enctype="multipart/form-data">
+
+                            <div class="mb-3">
+                                <input type="text" class="form-control" id="story-title" name="storyTitle"
+                                    placeholder="Story Title">
+                            </div>
+                            <div class="mb-3">
+                                <textarea class="form-control" id="story-content" name="storyContent" rows="5"
+                                    placeholder="Write your story here"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <input type="file" class="form-control" id="story-image" name="storyImage"
+                                    accept="image/*">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit Story</button>
+                            <button type="button" class="btn btn-secondary" onclick="closeShareForm()">Cancel</button>
+                            <div class="alert alert-success" id="success-message" style="display: none;">
+                                Story posted successfully!
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4 portfolio-container">
+                <div class="container-xxl py-5">
+                    <div class="row mt-n2 wow fadeInUp" data-wow-delay="0.3s">
+                        <!-- Your stories will be displayed here -->
+                    </div>
+                    <div class="row g-4 portfolio-container">
+                        <% if (stories && stories.length> 0) { %>
+                            <% stories.forEach((story, index)=> { %>
+                                <div class="col-lg-4 col-md-6 portfolio-item <% if (index % 2 === 0) { %>first<% } else { %>second<% } %> wow fadeInUp"
+                                    data-wow-delay="<% if (index % 2 === 0) { %>0.1s<% } else { %>0.3s<% } %>">
+                                    <div class="rounded overflow-hidden">
+                                        <div class="position-relative overflow-hidden">
+                                            <img class="img-fluid w-100" src="<%= story.imageUrl %>" alt="Story Image"
+                                                style="height: 410px;">
+                                            <div class="portfolio-overlay">
+                                                <a class="btn btn-square btn-outline-light mx-1 toggle-story">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
+                                                <a class="btn btn-square btn-outline-light mx-1" href="pennn.html">
+                                                    <i class="fa fa-link"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="border border-5 border-light border-top-0 p-4 toggle-story">
+                                            <p class="text-primary fw-medium mb-2 story-title">
+                                                <%= story.title %>
+                                            </p>
+                                            <h5 class="lh-base mb-0 story-content" style="display:none">
+                                                <%= story.content %>
+                                            </h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <% }); %>
+                                    <% } else { %>
+                                        <p>No stories to display.</p>
+                                        <% } %>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+        </div>
+
+
+
+        <div class="container-xxl py-5">
+
+            <div class="row mt-n2 wow fadeInUp" data-wow-delay="0.3s">
+
+            </div>
+            <div class="row g-4 portfolio-container">
+                <div class="col-lg-4 col-md-6 portfolio-item first wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="rounded overflow-hidden">
+                        <div class="position-relative overflow-hidden">
+                            <img class="img-fluid w-100"
+                                src="https://cdn.pixabay.com/photo/2023/08/12/20/21/woman-8186391_1280.png" alt="">
+                            <div class="portfolio-overlay">
+                                <a class="btn btn-square btn-outline-light mx-1 toggle-story">
+                                    <i class="fa fa-eye"></i></a>
+                                <a class="btn btn-square btn-outline-light mx-1" href="pennn.html"><i
+                                        class="fa fa-link"></i></a>
+                            </div>
+                        </div>
+                        <div class="border border-5 border-light border-top-0 p-4 toggle-story">
+                            <p class="text-primary fw-medium mb-2 story-title">The Resilient Visionary</p>
+                            <h5 class="lh-base mb-0 story-content" style="display:none">content:shes a gal who jus
+                                wanna live with all she really wants but now she jus feels it better to go with the
+                                flow;) </h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 portfolio-item second wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="rounded overflow-hidden">
+                        <div class="position-relative overflow-hidden">
+                            <img class="img-fluid w-80 h-80"
+                                src="https://img.freepik.com/free-vector/inspirational-quotes-with-teenage-character_1308-134979.jpg?w=740&t=st=1694505361~exp=1694505961~hmac=e0a1636da5c3d6f0426cdb7e0a59af6c3f5fc82488e305645a5ab911708c1449"
+                                alt="" style="height: 410px;">
+                            <div class="portfolio-overlay">
+                                <a class="btn btn-square btn-outline-light mx-1"
+                                    href="https://img.freepik.com/free-vector/inspirational-quotes-with-teenage-character_1308-134979.jpg?w=740&t=st=1694505361~exp=1694505961~hmac=e0a1636da5c3d6f0426cdb7e0a59af6c3f5fc82488e305645a5ab911708c1449"
+                                    data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                                <a class="btn btn-square btn-outline-light mx-1" href="pennn.html"><i
+                                        class="fa fa-link"></i></a>
+                            </div>
+                        </div>
+                        <div class="border border-5 border-light border-top-0 p-4">
+                            <p class="text-primary fw-medium mb-2">The Resilient Visionary</p>
+                            <h5 class="lh-base mb-0"></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 portfolio-item first wow fadeInUp" data-wow-delay="0.5s">
+                    <div class="rounded overflow-hidden">
+                        <div class="position-relative overflow-hidden">
+                            <img class="img-fluid w-80 h-80"
+                                src="https://img.freepik.com/free-vector/hand-drawn-emo-concept-illustration_52683-101273.jpg?w=740&t=st=1694501391~exp=1694501991~hmac=289436cbf71eb8730ed6f6abc0404e0210f03a3c54e74052a9255504e2e83352"
+                                alt="">
+                            <div class="portfolio-overlay">
+                                <a class="btn btn-square btn-outline-light mx-1"
+                                    href="https://img.freepik.com/free-vector/hand-drawn-emo-concept-illustration_52683-101273.jpg?w=740&t=st=1694501391~exp=1694501991~hmac=289436cbf71eb8730ed6f6abc0404e0210f03a3c54e74052a9255504e2e83352"
+                                    data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                                <a class="btn btn-square btn-outline-light mx-1" href="pennn.html"><i
+                                        class="fa fa-link"></i></a>
+                            </div>
+                        </div>
+                        <div class="border border-5 border-light border-top-0 p-4">
+                            <p class="text-primary fw-medium mb-2">The Resilient Visionary</p>
+                            <h5 class="lh-base mb-0"></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 portfolio-item second wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="rounded overflow-hidden">
+                        <div class="position-relative overflow-hidden">
+                            <img class="img-fluid w-100"
+                                src="https://img.freepik.com/free-vector/sad-teenage-sitting-floor_1308-133665.jpg?w=740&t=st=1694506422~exp=1694507022~hmac=4beb8451db6919bf33f8c0d7fc82b136cf5d5b63a8671959096eda6f884c5918"
+                                alt="" style="height: 410px;;">
+                            <div class="portfolio-overlay">
+                                <a class="btn btn-square btn-outline-light mx-1"
+                                    href="https://img.freepik.com/free-vector/sad-teenage-sitting-floor_1308-133665.jpg?w=740&t=st=1694506422~exp=1694507022~hmac=4beb8451db6919bf33f8c0d7fc82b136cf5d5b63a8671959096eda6f884c5918"
+                                    data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                                <a class="btn btn-square btn-outline-light mx-1" href="pennn.html"><i
+                                        class="fa fa-link"></i></a>
+                            </div>
+                        </div>
+                        <div class="border border-5 border-light border-top-0 p-4">
+                            <p class="text-primary fw-medium mb-2">The Resilient Visionary</p>
+                            <h5 class="lh-base mb-0"></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 portfolio-item first wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="rounded overflow-hidden">
+                        <div class="position-relative overflow-hidden">
+                            <img class="img-fluid w-100"
+                                src="https://img.freepik.com/free-vector/teen-with-emotional-physical-changes_1308-134959.jpg?w=826&t=st=1694506533~exp=1694507133~hmac=a789667793d000ceb9a003935bec47706dcd5b2c0e2705b29f792b8725413960"
+                                alt="" style="height: 410px;">
+                            <div class="portfolio-overlay">
+                                <a class="btn btn-square btn-outline-light mx-1"
+                                    href="https://img.freepik.com/free-vector/teen-with-emotional-physical-changes_1308-134959.jpg?w=826&t=st=1694506533~exp=1694507133~hmac=a789667793d000ceb9a003935bec47706dcd5b2c0e2705b29f792b8725413960"
+                                    data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                                <a class="btn btn-square btn-outline-light mx-1" href="pennn.html"><i
+                                        class="fa fa-link"></i></a>
+                            </div>
+                        </div>
+                        <div class="border border-5 border-light border-top-0 p-4">
+                            <p class="text-primary fw-medium mb-2">The Resilient Visionary</p>
+                            <h5 class="lh-base mb-0"></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 portfolio-item second wow fadeInUp" data-wow-delay="0.5s">
+                    <div class="rounded overflow-hidden">
+                        <div class="position-relative overflow-hidden">
+                            <img class="img-fluid w-100"
+                                src="https://img.freepik.com/free-vector/inspirational-quotes-with-teenage-character_1308-134552.jpg?w=740&t=st=1694506673~exp=1694507273~hmac=a2643dec919ec949239e52d4e5f18ffa7864023e480e97c003ecfddb20449ca5"
+                                alt="">
+                            <div class="portfolio-overlay">
+                                <a class="btn btn-square btn-outline-light mx-1"
+                                    href="https://img.freepik.com/free-vector/inspirational-quotes-with-teenage-character_1308-134552.jpg?w=740&t=st=1694506673~exp=1694507273~hmac=a2643dec919ec949239e52d4e5f18ffa7864023e480e97c003ecfddb20449ca5"
+                                    data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                                <a class="btn btn-square btn-outline-light mx-1" href="pennn.html"><i
+                                        class="fa fa-link"></i></a>
+                            </div>
+                        </div>
+                        <div class="border border-5 border-light border-top-0 p-4">
+                            <p class="text-primary fw-medium mb-2">The Resilient Visionary</p>
+                            <h5 class="lh-base mb-0"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- JavaScript for the functionality -->
+        <script>
+            // document.getElementById("story-form").addEventListener("submit", async function (e) {
+            //     e.preventDefault();
+
+            //     const title = document.getElementById("story-title").value;
+            //     const content = document.getElementById("story-content").value;
+
+            //     if (title && content) {
+            //         // Disable the submit button and show loading message
+            //         submitButton.disabled = true;
+            //         loadingMessage.style.display = "block"
+            //         const formData = {
+            //             storyTitle: title,
+            //             storyContent: content
+            //         };
+
+            //         try {
+            //             const response = await fetch("/stories", {
+            //                 method: "POST",
+            //                 headers: {
+            //                     "Content-Type": "application/json"
+            //                 },
+            //                 body: JSON.stringify(formData)
+            //             });
+
+            //             if (response.ok) {
+            //                 // Story posted successfully, handle the response as needed
+            //             } else {
+            //                 console.error("Failed to post the story.");
+            //             }
+            //         } catch (error) {
+            //             console.error(error);
+            //         } finally {
+            //             // Re-enable the submit button and hide the loading message
+            //             submitButton.disabled = false;
+            //             loadingMessage.style.display = "none";
+            //         }
+            //     } else {
+            //         alert("Title and content are required fields.");
+            //     }
+            // });\
+
+  // Function to handle form submission
+document.getElementById("story-form").addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const title = document.getElementById("story-title").value;
+    const content = document.getElementById("story-content").value;
+    const imageInput = document.getElementById("story-image");
+
+    if (title && content) {
+        const formData = new FormData();
+        formData.append('storyTitle', title);
+        formData.append('storyContent', content);
+        formData.append('storyImage', imageInput.files[0]);
+
+        try {
+            const response = await fetch('/stories', {
+                method: 'POST',
+                body: formData,
+            });
+
+            if (response.ok) {
+                const newStory = await response.json();
+
+                // Show success message
+                document.getElementById("success-message").style.display = "block";
+
+                // Get the story container element
+                const storyContainer = document.querySelector('.portfolio-container');
+
+                // Create a new story card and append it to the story container
+                const newStoryCard = createStoryCard(newStory);
+                storyContainer.appendChild(newStoryCard);
+
+                // Reset the form
+                document.getElementById("story-form").reset();
+
+                // Close the share form if necessary
+                closeShareForm();
+            } else {
+                console.error("Failed to post the story.");
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    } else {
+        alert("Title and content are required fields.");
+    }
+});
+
+// Function to toggle the share form
+function toggleShareForm() {
+    const shareFormContainer = document.getElementById("share-form-container");
+    if (shareFormContainer.style.display === "none" || shareFormContainer.style.display === "") {
+        shareFormContainer.style.display = "block";
+        document.getElementById("overlay").style.display = "block";
+        document.getElementById("popup").style.display = "block";
+    } else {
+        shareFormContainer.style.display = "none";
+        document.getElementById("overlay").style.display = "none";
+        document.getElementById("popup").style.display = "none";
+    }
+}
+
+// Function to close the share form
+function closeShareForm() {
+    const shareFormContainer = document.getElementById("share-form-container");
+    shareFormContainer.style.display = "none";
+    document.getElementById("overlay").style.display = "none";
+    document.getElementById("popup").style.display = "none";
+}
+
+// Function to toggle the visibility of story content
+function toggleStoryContent(event) {
+    event.preventDefault(); // Prevent the default link behavior
+
+    // Find the closest ".portfolio-item" parent of the clicked "eye" link
+    const portfolioItem = event.target.closest(".portfolio-item");
+    if (!portfolioItem) return; // Return if not found
+
+    const storyContent = portfolioItem.querySelector(".story-content");
+    if (storyContent.style.display === "none" || storyContent.style.display === "") {
+        storyContent.style.display = "block";
+    } else {
+        storyContent.style.display = "none";
+    }
+}
+
+// Add event listeners to "eye" links to toggle story content visibility
+const toggleStoryLinks = document.querySelectorAll(".toggle-story");
+toggleStoryLinks.forEach(link => {
+    link.addEventListener("click", toggleStoryContent);
+});
+
+// Function to fetch and display stories
+async function fetchAndDisplayStories() {
+    try {
+        const response = await fetch('/stories', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+            },
+        });
+
+        if (response.ok) {
+            const stories = await response.json();
+            const storyContainer = document.querySelector('.portfolio-container');
+            storyContainer.innerHTML = ''; // Clear the existing content
+
+            stories.forEach(story => {
+                const storyCard = createStoryCard(story);
+                storyContainer.appendChild(storyCard);
+            });
+        } else {
+            console.error('Failed to fetch stories from the server.');
+        }
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+// Function to create a story card
+function createStoryCard(story) {
+    const storyCard = document.createElement('div');
+    storyCard.classList.add('col-lg-4', 'col-md-6', 'portfolio-item', 'wow', 'fadeInUp');
+
+    // Create the structure of the story card using the story data
+    storyCard.innerHTML = `
+        <div class="rounded overflow-hidden">
+            <div class="position-relative overflow-hidden">
+                <img class="img-fluid w-100" src="${story.imageUrl}" alt="Story Image" style="height: 410px;">
+                <div class="portfolio-overlay">
+                    <a class="btn btn-square btn-outline-light mx-1 toggle-story" onclick="toggleStoryContent(event)">
+                        <i class="fa fa-eye"></i>
+                    </a>
+                    <a class="btn btn-square btn-outline-light mx-1" href="pennn.html">
+                        <i class="fa fa-link"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="border border-5 border-light border-top-0 p-4 toggle-story">
+                <p class="text-primary fw-medium mb-2 story-title">${story.title}</p>
+                <h5 class="lh-base mb-0 story-content" style="display:none">${story.content}</h5>
+            </div>
+        </div>
+    `;
+
+    return storyCard;
+}
+
+// Fetch and display stories when the page loads
+window.addEventListener('load', fetchAndDisplayStories);
+
+
+        </script> 
+        </div>
+        <%- include('layout/footer.ejs') %>
+</body>

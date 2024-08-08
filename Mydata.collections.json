@@ -1,0 +1,813 @@
+[{
+  "_id": {
+    "$oid": "6516df0bf566d83f2ca7140e"
+  },
+  "name": "pooja",
+  "email": "poo@gmail.com",
+  "password": "poo",
+  "cpassword": "poo",
+  "role": 0,
+  "securityAnswer": "pooja",
+  "createdAt": {
+    "$date": "2023-09-29T14:28:27.845Z"
+  },
+  "updatedAt": {
+    "$date": "2023-10-06T05:45:41.794Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6516df1cf566d83f2ca71410"
+  },
+  "name": "pooja",
+  "email": "poo@gmail.com",
+  "password": "poo",
+  "cpassword": "poo",
+  "role": 0,
+  "securityAnswer": "pooja",
+  "createdAt": {
+    "$date": "2023-09-29T14:28:44.280Z"
+  },
+  "updatedAt": {
+    "$date": "2023-09-29T14:28:44.280Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6516e0e27f0b221098a8d7fb"
+  },
+  "name": "pk",
+  "email": "pk@gmail.com",
+  "password": "pk",
+  "cpassword": "pk",
+  "role": 0,
+  "securityAnswer": "pooja",
+  "createdAt": {
+    "$date": "2023-09-29T14:36:18.932Z"
+  },
+  "updatedAt": {
+    "$date": "2023-09-29T14:36:18.932Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6516e2c05abb37e31eb6f84f"
+  },
+  "name": "gal",
+  "email": "gal@gmail.com",
+  "password": "hehe",
+  "cpassword": "hehe",
+  "role": 0,
+  "securityAnswer": "nope",
+  "createdAt": {
+    "$date": "2023-09-29T14:44:16.538Z"
+  },
+  "updatedAt": {
+    "$date": "2023-09-29T14:44:16.538Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6516e3805abb37e31eb6f851"
+  },
+  "name": "priyanka",
+  "email": "piyu@gmail.com",
+  "password": "piyu",
+  "cpassword": "piyu",
+  "role": 0,
+  "securityAnswer": "piyu",
+  "createdAt": {
+    "$date": "2023-09-29T14:47:28.961Z"
+  },
+  "updatedAt": {
+    "$date": "2023-09-29T14:47:28.961Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6516e46aa3f956d04742bd89"
+  },
+  "name": "pinky",
+  "email": "piyu@gmail.com",
+  "password": "piyu",
+  "cpassword": "piyu",
+  "role": 0,
+  "securityAnswer": "piyu",
+  "createdAt": {
+    "$date": "2023-09-29T14:51:22.348Z"
+  },
+  "updatedAt": {
+    "$date": "2023-09-29T14:51:22.348Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6516e4ad86d4c4429172c325"
+  },
+  "name": "welldone",
+  "email": "gudwork@gmail.com",
+  "password": "gud",
+  "cpassword": "gud",
+  "role": 0,
+  "securityAnswer": "excellent",
+  "createdAt": {
+    "$date": "2023-09-29T14:52:29.592Z"
+  },
+  "updatedAt": {
+    "$date": "2023-09-29T14:52:29.592Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6516e4da3e53df4e2af5bd3b"
+  },
+  "name": "welldone",
+  "email": "gudwork@gmail.com",
+  "password": "nice",
+  "cpassword": "nice",
+  "role": 0,
+  "securityAnswer": "excellent",
+  "createdAt": {
+    "$date": "2023-09-29T14:53:14.144Z"
+  },
+  "updatedAt": {
+    "$date": "2023-09-29T14:53:14.144Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6516f508529841ee0c84a72c"
+  },
+  "name": "pooja",
+  "email": "pooja@gmail.com",
+  "password": "phuggi",
+  "cpassword": "phuggi",
+  "role": 0,
+  "securityAnswer": "poo",
+  "createdAt": {
+    "$date": "2023-09-29T16:02:16.085Z"
+  },
+  "updatedAt": {
+    "$date": "2023-09-29T16:02:16.085Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65170813251b9578898e2803"
+  },
+  "name": "doc",
+  "email": "doc@gmail.com",
+  "password": "doc",
+  "cpassword": "doc",
+  "role": 0,
+  "securityAnswer": "yes",
+  "createdAt": {
+    "$date": "2023-09-29T17:23:31.230Z"
+  },
+  "updatedAt": {
+    "$date": "2023-09-29T17:23:31.230Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6517aca266a18435220d2268"
+  },
+  "name": "vaish",
+  "email": "vaish@gmail.com",
+  "password": "vaish",
+  "cpassword": "vaish",
+  "role": 0,
+  "securityAnswer": "saba",
+  "createdAt": {
+    "$date": "2023-09-30T05:05:38.549Z"
+  },
+  "updatedAt": {
+    "$date": "2023-09-30T05:05:38.549Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6517ad52c3e2313c8571a35b"
+  },
+  "name": "vaish",
+  "email": "vaish12@gmail.com",
+  "password": "vaish",
+  "cpassword": "vaish",
+  "role": 0,
+  "securityAnswer": "saba",
+  "createdAt": {
+    "$date": "2023-09-30T05:08:34.343Z"
+  },
+  "updatedAt": {
+    "$date": "2023-09-30T05:08:34.343Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6517b384c3e2313c8571a35e"
+  },
+  "name": "hehe",
+  "email": "hehe@gmail.com",
+  "password": "hehe",
+  "cpassword": "hehe",
+  "role": 0,
+  "securityAnswer": "heehe",
+  "createdAt": {
+    "$date": "2023-09-30T05:35:00.602Z"
+  },
+  "updatedAt": {
+    "$date": "2023-09-30T05:35:00.602Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6517b6a229ab1aacf30ebe4d"
+  },
+  "name": "thera",
+  "email": "thera@gmail.com",
+  "password": "thera",
+  "cpassword": "thera",
+  "role": 0,
+  "securityAnswer": "ok",
+  "createdAt": {
+    "$date": "2023-09-30T05:48:18.043Z"
+  },
+  "updatedAt": {
+    "$date": "2023-09-30T05:48:18.043Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "651af48befe8859265cdfcd3"
+  },
+  "name": "poo",
+  "email": "poo2@gmail.com",
+  "password": "poo2",
+  "cpassword": "poo2",
+  "role": 0,
+  "securityAnswer": "pooja",
+  "createdAt": {
+    "$date": "2023-10-02T16:49:15.997Z"
+  },
+  "updatedAt": {
+    "$date": "2023-10-02T16:49:15.997Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "651bc86b5ebcee6bf340af31"
+  },
+  "name": "viju",
+  "email": "vijz@gmail.com",
+  "password": "vijj",
+  "cpassword": "vijj",
+  "role": 0,
+  "securityAnswer": "snnn",
+  "createdAt": {
+    "$date": "2023-10-03T07:53:15.347Z"
+  },
+  "updatedAt": {
+    "$date": "2023-10-03T07:53:15.347Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "651bc90975f3cb77b9a80224"
+  },
+  "name": "nnnmm",
+  "email": "mkmm@gmail.com",
+  "password": "mmm",
+  "cpassword": "mmm",
+  "role": 0,
+  "securityAnswer": "hhi",
+  "createdAt": {
+    "$date": "2023-10-03T07:55:53.538Z"
+  },
+  "updatedAt": {
+    "$date": "2023-10-03T07:55:53.538Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "651c2640fc96804a7a1c0141"
+  },
+  "name": "lll",
+  "email": "ll@gmail.com",
+  "password": "ll",
+  "cpassword": "ll",
+  "role": 0,
+  "securityAnswer": "hoo",
+  "createdAt": {
+    "$date": "2023-10-03T14:33:36.543Z"
+  },
+  "updatedAt": {
+    "$date": "2023-10-03T14:33:36.543Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "651c2c856c87f96c70e89a91"
+  },
+  "name": "dil",
+  "email": "dil@gmail.com",
+  "password": "dil",
+  "cpassword": "dil",
+  "role": 0,
+  "securityAnswer": "dia",
+  "doctorInfo": {
+    "specialization": "therapists",
+    "licenseNumber": "222"
+  },
+  "createdAt": {
+    "$date": "2023-10-03T15:00:21.886Z"
+  },
+  "updatedAt": {
+    "$date": "2023-10-03T15:00:21.886Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "651c3896adf5bdc40281b600"
+  },
+  "name": "Robin",
+  "email": "Robin@gmail.com",
+  "password": "Robin",
+  "cpassword": "Robin",
+  "role": 0,
+  "securityAnswer": "rose",
+  "doctorInfo": {
+    "category": "therapist",
+    "licenseNumber": "222"
+  },
+  "createdAt": {
+    "$date": "2023-10-03T15:51:50.559Z"
+  },
+  "updatedAt": {
+    "$date": "2023-10-03T15:51:50.559Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "651d484a76bb1d9c5d5a735d"
+  },
+  "name": "dil",
+  "email": "dil1@gmail.com",
+  "password": "dil1",
+  "cpassword": "dil1",
+  "role": 0,
+  "securityAnswer": "dila",
+  "doctorInfo": {
+    "category": "therapist",
+    "licenseNumber": "23"
+  },
+  "createdAt": {
+    "$date": "2023-10-04T11:11:06.908Z"
+  },
+  "updatedAt": {
+    "$date": "2023-10-04T11:11:06.908Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "651d4a59fa66cd3438a89cf8"
+  },
+  "name": "Charlie",
+  "email": "Charlie@gmail.com",
+  "password": "1234",
+  "cpassword": "1234",
+  "role": 0,
+  "securityAnswer": "Charliee",
+  "createdAt": {
+    "$date": "2023-10-04T11:19:53.881Z"
+  },
+  "updatedAt": {
+    "$date": "2023-10-04T11:19:53.881Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "651d4ae0470f627f9a862011"
+  },
+  "name": "Charliee",
+  "email": "charliee@gmail.com",
+  "password": "1234",
+  "cpassword": "1234",
+  "role": 0,
+  "securityAnswer": "Char",
+  "createdAt": {
+    "$date": "2023-10-04T11:22:08.517Z"
+  },
+  "updatedAt": {
+    "$date": "2023-10-04T11:22:08.517Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "651d581b166d47aca6b7c77d"
+  },
+  "name": "Chetan",
+  "email": "chetan@gmail.com",
+  "password": "1234",
+  "cpassword": "1234",
+  "role": 0,
+  "securityAnswer": "cherry",
+  "doctorInfo": {
+    "category": "therapist",
+    "licenseNumber": "11132002"
+  },
+  "createdAt": {
+    "$date": "2023-10-04T12:18:35.038Z"
+  },
+  "updatedAt": {
+    "$date": "2023-10-04T12:18:35.038Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "651d5f3f4cac8174e08a6d0f"
+  },
+  "name": "sagar",
+  "email": "sagar@gmail.com",
+  "password": "1234",
+  "cpassword": "1234",
+  "role": 0,
+  "securityAnswer": "chetan",
+  "doctorInfo": {
+    "category": "therapist",
+    "licenseNumber": "13112002"
+  },
+  "createdAt": {
+    "$date": "2023-10-04T12:49:03.853Z"
+  },
+  "updatedAt": {
+    "$date": "2023-10-04T12:49:03.853Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "651d63410211d9c63f7eb820"
+  },
+  "name": "Rishi",
+  "email": "rishi@gmail.com",
+  "password": "india",
+  "cpassword": "india",
+  "role": 0,
+  "securityAnswer": "india",
+  "doctorInfo": {
+    "category": "therapist",
+    "licenseNumber": "111"
+  },
+  "createdAt": {
+    "$date": "2023-10-04T13:06:09.466Z"
+  },
+  "updatedAt": {
+    "$date": "2023-10-04T13:06:09.466Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "651d65ea16a773acc5b03632"
+  },
+  "name": "disha",
+  "email": "dish@gmail.com",
+  "password": "tiger",
+  "cpassword": "tiger",
+  "role": 0,
+  "securityAnswer": "tiger",
+  "doctorInfo": {
+    "category": "psychiatrist",
+    "licenseNumber": "333"
+  },
+  "createdAt": {
+    "$date": "2023-10-04T13:17:30.774Z"
+  },
+  "updatedAt": {
+    "$date": "2023-10-04T13:17:30.774Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "651d681cbfddd2b7c08e3544"
+  },
+  "name": "Disha",
+  "email": "disha@gmail.com",
+  "password": "disha",
+  "cpassword": "disha",
+  "role": 0,
+  "securityAnswer": "tiger",
+  "doctorInfo": {
+    "category": "therapist",
+    "licenseNumber": "111"
+  },
+  "createdAt": {
+    "$date": "2023-10-04T13:26:52.423Z"
+  },
+  "updatedAt": {
+    "$date": "2023-10-04T13:26:52.423Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "651d732ddb7c8829250670cd"
+  },
+  "name": "pooja",
+  "email": "SHH@gmail.com",
+  "password": "shh",
+  "cpassword": "shh",
+  "role": 0,
+  "securityAnswer": "kk",
+  "doctorInfo": {
+    "category": "therapist",
+    "licenseNumber": "66"
+  },
+  "createdAt": {
+    "$date": "2023-10-04T14:14:05.586Z"
+  },
+  "updatedAt": {
+    "$date": "2023-10-04T14:14:05.586Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "651d7635f159f69bc1f8a857"
+  },
+  "name": "shh",
+  "email": "shh@gmail.com",
+  "password": "shh",
+  "cpassword": "shh",
+  "role": 0,
+  "securityAnswer": "kk",
+  "doctorInfo": {
+    "category": "therapist",
+    "licenseNumber": "23"
+  },
+  "createdAt": {
+    "$date": "2023-10-04T14:27:01.685Z"
+  },
+  "updatedAt": {
+    "$date": "2023-10-04T14:27:01.685Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "651d7938c97db9448a27ad7f"
+  },
+  "name": "hj",
+  "email": "jj@gmail.com",
+  "password": "kk",
+  "cpassword": "kk",
+  "role": 0,
+  "securityAnswer": "ko",
+  "doctorInfo": {
+    "category": "therapist",
+    "licenseNumber": "88"
+  },
+  "createdAt": {
+    "$date": "2023-10-04T14:39:52.861Z"
+  },
+  "updatedAt": {
+    "$date": "2023-10-04T14:39:52.861Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "651ed7b9ae3bb6618247e841"
+  },
+  "name": "kk",
+  "email": "kk@gmail.com",
+  "password": "kk",
+  "cpassword": "kk",
+  "role": 0,
+  "securityAnswer": "ll",
+  "doctorInfo": {
+    "category": "therapist",
+    "licenseNumber": "88"
+  },
+  "createdAt": {
+    "$date": "2023-10-05T15:35:21.793Z"
+  },
+  "updatedAt": {
+    "$date": "2023-10-05T15:35:21.793Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "651f9f35dc7093b3aa8387a3"
+  },
+  "name": "sneha",
+  "email": "sneha@gmail.com",
+  "password": "sneha",
+  "cpassword": "sneha",
+  "role": 0,
+  "securityAnswer": "sneha",
+  "createdAt": {
+    "$date": "2023-10-06T05:46:29.177Z"
+  },
+  "updatedAt": {
+    "$date": "2023-10-06T05:46:29.177Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "651fa145aa22d83a2ac9f501"
+  },
+  "name": "kavita",
+  "email": "kavita@gmail.com",
+  "password": "kavita",
+  "cpassword": "kavita",
+  "role": 0,
+  "securityAnswer": "lord",
+  "createdAt": {
+    "$date": "2023-10-06T05:55:17.742Z"
+  },
+  "updatedAt": {
+    "$date": "2023-10-06T05:55:17.742Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6520376bce2c2d48601b4f8f"
+  },
+  "name": "she",
+  "email": "she@gmail.com",
+  "password": "she",
+  "cpassword": "she",
+  "role": 0,
+  "securityAnswer": "momo",
+  "createdAt": {
+    "$date": "2023-10-06T16:35:55.679Z"
+  },
+  "updatedAt": {
+    "$date": "2023-10-06T16:35:55.679Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65203dff9910e72849e1026d"
+  },
+  "name": "kk",
+  "email": "k@gmail.com",
+  "password": "k",
+  "cpassword": "k",
+  "role": 0,
+  "securityAnswer": "poo",
+  "createdAt": {
+    "$date": "2023-10-06T17:03:59.483Z"
+  },
+  "updatedAt": {
+    "$date": "2023-10-06T17:03:59.483Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "652040478a455ac018d77561"
+  },
+  "name": "ji",
+  "email": "ji@gmail.com",
+  "password": "ji",
+  "cpassword": "ji",
+  "role": 0,
+  "securityAnswer": "ok",
+  "createdAt": {
+    "$date": "2023-10-06T17:13:43.246Z"
+  },
+  "updatedAt": {
+    "$date": "2023-10-06T17:13:43.246Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6520410c92529078719f4e3a"
+  },
+  "name": "mk",
+  "email": "mk@gmail.com",
+  "password": "mk",
+  "cpassword": "mk",
+  "role": 0,
+  "securityAnswer": "mkk",
+  "createdAt": {
+    "$date": "2023-10-06T17:17:00.938Z"
+  },
+  "updatedAt": {
+    "$date": "2023-10-06T17:17:00.938Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6520422b972868fbd523af89"
+  },
+  "name": "m",
+  "email": "m@gmail.com",
+  "password": "k",
+  "cpassword": "k",
+  "role": 0,
+  "securityAnswer": "ok",
+  "createdAt": {
+    "$date": "2023-10-06T17:21:47.780Z"
+  },
+  "updatedAt": {
+    "$date": "2023-10-06T17:21:47.780Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6520c31ac6eda2adda1f43a3"
+  },
+  "name": "k",
+  "email": "ok@gmail.com",
+  "password": "ok",
+  "cpassword": "ok",
+  "role": 0,
+  "securityAnswer": "friend",
+  "doctorInfo": {
+    "licenseNumber": "55"
+  },
+  "createdAt": {
+    "$date": "2023-10-07T02:31:54.936Z"
+  },
+  "updatedAt": {
+    "$date": "2023-10-07T02:31:54.936Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6520c6c94bb9c8438ee556b8"
+  },
+  "name": "han",
+  "email": "han@gmail.com",
+  "password": "han",
+  "cpassword": "han",
+  "role": 0,
+  "securityAnswer": "hehe",
+  "doctorInfo": {
+    "licenseNumber": "8"
+  },
+  "createdAt": {
+    "$date": "2023-10-07T02:47:37.815Z"
+  },
+  "updatedAt": {
+    "$date": "2023-10-07T02:47:37.815Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6520c86a968cd4ec1ba52262"
+  },
+  "name": "chk",
+  "email": "chk@gmail.com",
+  "password": "ok",
+  "cpassword": "ok",
+  "role": 0,
+  "securityAnswer": "ok",
+  "doctorInfo": {
+    "licenseNumber": "8"
+  },
+  "createdAt": {
+    "$date": "2023-10-07T02:54:34.748Z"
+  },
+  "updatedAt": {
+    "$date": "2023-10-07T02:54:34.748Z"
+  },
+  "__v": 0
+}]

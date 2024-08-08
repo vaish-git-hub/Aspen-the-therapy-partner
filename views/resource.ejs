@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>
+         resource
+    </title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link href="/img/bg4.png" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=DM+Serif+Display:ital@1&family=Lilita+One&family=Poppins:wght@300;600&family=Rubik:wght@300&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="/css/style.css" rel="stylesheet">
+    <style>
+        /* 
+        /* Basic styles 
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        } */
+
+        /* Header styles */
+        .header {
+            background-color: #AB7442;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .title {
+            font-size: 28px;
+        }
+
+        /* Container styles */
+        .container5 {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Category styles */
+        .category {
+            margin-bottom: 40px;
+        }
+
+        .category-title {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #AB7442;
+        }
+
+        /* Media styles */
+        .media {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .video,
+        .audio {
+            flex: 1;
+            margin-right: 20px;
+        }
+
+        /* Remedies styles */
+        .remedies {
+            flex: 2;
+        }
+
+        .remedies-title {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #AB7442;
+        }
+
+        .remedies-list {
+            list-style: disc;
+            padding-left: 20px;
+        }
+
+        /* Footer styles */
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 10px 0;
+            background-color: #AB7442;
+            color: #fff;
+        }
+
+        .footer-text {
+            font-size: 16px;
+        }
+
+        /* Animation classes */
+        .animate-left {
+            transform: translateX(-100%);
+            animation: slideInLeft 1s ease both;
+        }
+
+        .animate-right {
+            transform: translateX(100%);
+            animation: slideInRight 1s ease both;
+        }
+
+        @keyframes slideInLeft {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            0% {
+                transform: translateX(100%);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Image block container */
+        .image-block-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        /* Image block */
+        .image-block {
+            width: 400px;
+            height: 400px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .image {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            overflow: hidden;
+            transition: height 0.3s ease;
+        }
+
+        .image-block:hover .overlay {
+            height: 100%;
+        }
+
+        /* Link icon */
+        .link-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+            text-decoration: none;
+            font-size: 24px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <%- include('layout/header.ejs') %>
+
+
+        <header class="header">
+            <h1 class="title" style="color: white;">Here To Help You Out!</h1>
+        </header>
+        <div class="container5">
+            <section class="category">
+                <h1 class="category-title animate-left" style="font: weight 100px; font-size: 40px;">Depression</h1>
+                <div class="media">
+                    <div class="video animate-left">
+                        <iframe width="100%" height="315" src="https://cdn.jwplayer.com/previews/TfER8xtF"
+                            frameborder="0" allowfullscreen></iframe>
+                    </div>
+
+                    <div class="remedies">
+                        <h3 class="remedies-title animate-right">Symptoms</h3>
+                        <ul class="remedies-list animate-right">
+                            <li>Hopeless outlook</li>
+                            <li>Loss of interest</li>
+                            <li>Increased fatigue and sleep problems</li>
+                            <li>Irritability</li>
+                            <li>Changes in appetite and weight</li>
+                            <li>Uncontrollable emotions</li>
+                            <li>Looking at death</li>
+                        </ul><br>
+                        <div class="remedies">
+                            <h3 class="remedies-title animate-right">Remedial Methods:</h3>
+                            <div class="remedies-list animate-right">
+                                <li>Counseling and therapy</li>
+                                <li>Medication as prescribed by a doctor</li>
+                                <li>Regular exercise and a healthy diet</li>
+                                <li>Getting regular exercise.</li>
+                                <li>Getting quality sleep (not too little or too much).</li>
+                                <li>Avoiding alcohol, which is a depressant</li>
+                                <li>Spending time with people you care about</li> <br>
+
+                                <!-- Add more remedies as needed -->
+                                <h3 class="remedies-title animate-right">Without treatment, Depression can:</h3>
+                                <li>Become worse</li>
+                                <li>Increase your chance of other health conditions, like dementia.</li>
+                                <li>Lead to the worsening of existing health conditions, like diabetes or chronic pain.
+                                </li>
+                                <li>For Detailed consultation connect to our Therapists & Psychiatrists </li>
+                                </ul>
+
+                            </div>
+            </section>
+            <br />
+            <br />
+            <br />
+            <div class="image-block-container fade-in-up">
+                <!-- Image Block 1 -->
+                <div class="image-block">
+                    <img class="image"
+                        src="https://www.priorygroup.com/media/597620/tips-for-coping-with-depression.jpg" alt="Image 1"
+                        height="220px" width="230px">
+                    <div class="overlay">
+                        <a class="link-icon" href="#" title="Link to Image 1">&#x2192;</a>
+                    </div>
+                </div>
+                <!-- Image Block 2 -->
+                <div class="image-block">
+                    <img class="image"
+                        src="https://www.verywellmind.com/thmb/gZXpUOF3PJgb6cVKffk0yAU9BMk=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/treatments-for-depression-1065502-b0d9977b90cd4827a9bb1f3fbd047afb.png"
+                        alt="Image 2" height="250px" width="230px">
+                    <div class="overlay">
+                        <a class="link-icon" href="#" title="Link to Image 2">&#x2192;</a>
+                    </div>
+                </div>
+
+                <!-- Image Block 3 -->
+                <div class="image-block">
+                    <img class="image"
+                        src="https://au.reachout.com/-/media/young-people/images/image-library/depression-self-help-strategies-when-youre-doing-a-bit-better.jpg?h=auto&w=850&hash=F936E9F044F9F2106CFD1732A27AE7638DC477C1&la=en"
+                        alt="Image 3" height="250px" width="230px">
+                    <div class="overlay">
+                        <a class="link-icon" href="#" title="Link to Image 3">&#x2192;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="container5">
+            <section class="category">
+                <h1 class="category-title animate-left" style="font: weight 100px; font-size: 40px">Anxiety</h1>
+                <div class="media">
+                    <div class="video animate-left">
+                        <iframe width="100%" height="315"
+                            src="https://www.youtube.com/embed/MK0rESk_oW0?si=pattYPSiAoL89AXl" frameborder="0"
+                            allowfullscreen></iframe>
+                    </div>
+
+                    <div class="remedies">
+
+                        <h3 class="remedies-title animate-right">Symptoms</h3>
+                        <ul class="remedies-list animate-right">
+                            <li>nervousness, restlessness, or a sense of tension</li>
+                            <li>feelings of danger, panic, or dread</li>
+                            <li>rapid heart rate</li>
+                            <li>rapid breathing</li>
+                            <li>increased or heavy sweating</li>
+                            <li>trembling or muscle twitching</li>
+                            <li>trouble focusing or thinking clearly about anything other than one central preoccupation
+                            </li> <br>
+
+                            <h3 class="remedies-title animate-right">Remedial Methods:</h3>
+                            <ul class="remedies-list animate-right">
+                                <li>Limit caffeine intake</li>
+                                <li>Prioritize getting a good night’s rest</li>
+                                <li>Meditate and practice mindfulness</li>
+                                <li>Eat a balanced diet</li>
+                                <li>Practice deep breathing</li>
+                                <li>Drink chamomile tea</li>
+                            </ul> <br>
+
+                            <!-- Add more remedies as needed -->
+                            <h3 class="remedies-title">Without treatment, depression can:</h3>
+                            <li>Insomnia and Fatigue</li>
+                            <li>Heart Issues</li>
+                            <li>Substance Abuse</li>
+                            <li>For Detailed consultation connect to our Therapists & Psychiatrists </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <div class="image-block-container fade-in-up">
+                <!-- Image Block 1 -->
+                <div class="image-block">
+                    <img class="image"
+                        src="https://i0.wp.com/happyondemand.com/wp-content/uploads/2022/10/natural-remedies-for-anxiety-1.jpg?fit=1024%2C726&ssl=1"
+                        alt="Image 1" height="220px" width="230px">
+                    <div class="overlay">
+                        <a class="link-icon" href="#" title="Link to Image 1">&#x2192;</a>
+                    </div>
+                </div>
+                <!-- Image Block 2 -->
+                <div class="image-block">
+                    <img class="image"
+                        src="https://www.verywellmind.com/thmb/vooKbjr1pjHCRhwsB2rKDKCcYQs=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/anti-anxiety-medications-2330663-61aca5a651df4ac0a41a1cdf81c7d2db.jpg"
+                        alt="Image 2" height="220px" width="230px">
+                    <div class="overlay">
+                        <a class="link-icon" href="#" title="Link to Image 2">&#x2192;</a>
+                    </div>
+                </div>
+
+                <!-- Image Block 3 -->
+                <div class="image-block">
+                    <img class="image"
+                        src="https://media.licdn.com/dms/image/D4D12AQHYaDL0ZzH8Rw/article-cover_image-shrink_720_1280/0/1658761733204?e=2147483647&v=beta&t=tvmWxw5INFa_jCh89FeBaA0bxE6hko_muRUZhT6xnu4"
+                        alt="Image 3" height="220px" width="230px">
+                    <div class="overlay">
+                        <a class="link-icon" href="#" title="Link to Image 3">&#x2192;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container5">
+            <section class="category">
+                <h1 class="category-title animate-left" style="font: weight 100px; font-size: 40px;">Stress</h1>
+                <div class="media">
+                    <div class="video animate-left">
+                        <iframe width="100%" height="315" src="https://www.youtube.com/embed/grfXR6FAsI8"
+                            frameborder="0" allowfullscreen></iframe>
+                    </div>
+
+                    <div class="remedies">
+                        <h3 class="remedies-title animate-right">Symptoms</h3>
+                        <ul class="remedies-list animate-right">
+                            <li>Clammy or sweaty palms Diarrhea</li>
+                            <li>Difficulty sleeping</li>
+                            <li>Digestive problems</li>
+                            <li>Dizziness</li>
+                            <li>Feeling anxious</li>
+                            <li>Muscle tension, especially in the neck and shoulders</li>
+                            <li>Physical aches and pains</li>
+                        </ul><br>
+
+
+                        <div class="remedies">
+                            <h3 class="remedies-title animate-right">Remedial Methods:</h3>
+                            <ul class="remedies-list animate-right">
+                                <li>Psychotherapy Medication </li>
+                                <li>Learn to recognize the signs of burnout</li>
+                                <li>Try to get regular exercise</li>
+                                <li>Take care of yourself</li>
+                                <li>Practice mindfulness in your life</li>
+                                <li>massage yoga</li>
+
+
+                            </ul>
+                        </div>
+                    </div>
+            </section>
+            <div class="image-block-container fade-in-up">
+                <!-- Image Block 1 -->
+                <div class="image-block">
+                    <img class="image"
+                        src="https://www.priorygroup.com/media/597620/tips-for-coping-with-depression.jpg" alt="Image 1"
+                        height="230px" width="250px">
+                    <div class="overlay">
+                        <a class="link-icon" href="#" title="Link to Image 1">&#x2192;</a>
+                    </div>
+                </div>
+                <!-- Image Block 2 -->
+                <div class="image-block">
+                    <img class="image"
+                        src="https://www.verywellmind.com/thmb/gZXpUOF3PJgb6cVKffk0yAU9BMk=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/treatments-for-depression-1065502-b0d9977b90cd4827a9bb1f3fbd047afb.png"
+                        alt="Image 2" height="250px" width="250px">
+                    <div class="overlay">
+                        <a class="link-icon" href="#" title="Link to Image 2">&#x2192;</a>
+                    </div>
+                </div>
+
+                <!-- Image Block 3 -->
+                <div class="image-block">
+                    <img class="image"
+                        src="https://au.reachout.com/-/media/young-people/images/image-library/depression-self-help-strategies-when-youre-doing-a-bit-better.jpg?h=auto&w=850&hash=F936E9F044F9F2106CFD1732A27AE7638DC477C1&la=en"
+                        alt="Image 3" height="250px" width="250px">
+                    <div class="overlay">
+                        <a class="link-icon" href="#" title="Link to Image 3">&#x2192;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            // JavaScript to trigger fade-in-up effect on scroll
+            const elements = document.querySelectorAll('.fade-in-up');
+
+            function checkVisibility() {
+                elements.forEach((element) => {
+                    const rect = element.getBoundingClientRect();
+                    const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+                    if (rect.top <= windowHeight * 0.75) {
+                        element.classList.add('visible');
+                    }
+                });
+            }
+            window.addEventListener('scroll', checkVisibility);
+            window.addEventListener('resize', checkVisibility);
+
+            // Initial check
+            checkVisibility();
+        </script>
+
+
+
+        <%- include('layout/footer.ejs') %>
+</body>
+
+</html>

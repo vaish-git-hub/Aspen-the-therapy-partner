@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Include your styles and meta tags here -->
+    <title>
+        Appointad
+    </title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link href="/img/bg4.png" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=DM+Serif+Display:ital@1&family=Lilita+One&family=Poppins:wght@300;600&family=Rubik:wght@300&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="/css/style.css" rel="stylesheet">
+    <style>
+        /* Reset some default styles */
+       
+
+        /* Style the page header */
+        header {
+            background-color: #aB7442;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            font-size: 36px;
+        }
+
+        /* Style the schedule section */
+        .schedule {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Style the table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            background-color: white;
+            border-radius: 10px;
+            /* Rounded corners for the table */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-wrap: wrap;
+            /* Box shadow for depth */
+        }
+
+        /* Style table headers */
+        thead th {
+            background-color: #aB7442;
+            /* Header background color */
+            color: white;
+            font-weight: bold;
+            padding: 10px 16px;
+            text-align: left;
+        }
+
+        /* Style table rows */
+        tbody tr {
+            border-bottom: 1px solid #ccc;
+            transition: background-color 0.2s ease;
+            /* Smooth background color transition */
+        }
+
+        /* Style even rows with a background color */
+        tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /* Style table cells */
+        td {
+            padding: 10px 16px;
+            color: #333;
+            text-wrap: wrap;
+            /* Text color */
+        }
+
+        /* Center the table */
+        table {
+            margin: 0 auto;
+        }
+
+        /* Style the table hover effect */
+        tbody tr:hover {
+            background-color: #e0e0e0;
+            /* Hover background color */
+            cursor: pointer;
+            transform: scale(1.005);
+            /* Slight scale effect on hover */
+        }
+
+        h1 {
+            color: white;
+        }
+        /* Edit and Delete Button Styles */
+.schedule button {
+  padding: 5px 10px;
+  margin-right: 5px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+}
+
+.schedule button:hover {
+  background-color: #0056b3;
+}
+
+.schedule .delete-button {
+  background-color: #AB7442;
+}
+
+.schedule .delete-button:hover {
+  background-color: #c82333;
+}
+
+    </style>
+</head>
+<body>
+ 
+    <br />
+    <header>
+        <h1>Doctor's Schedule</h1>
+    </header>
+    <main>
+        
+        <section class="schedule">
+                       
+            <br><br>
+            <div id="createForm" style="display: none;">
+                <h2>Create New Appointment</h2>
+                <form onsubmit="createAppointment(event)">
+                    <label for="date">Date:</label>
+                    <input type="date" id="date" name="date" required><br><br>
+
+                    <label for="time">Time:</label>
+                    <input type="time" id="time" name="time" required><br><br>
+
+                    <label for="name">Patient Name:</label>
+                    <input type="text" id="name" name="name" required><br><br>
+
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required><br><br>
+
+                    <label for="phone">Phone:</label>
+                    <input type="tel" id="phone" name="phone" required><br><br>
+
+                    <label for="expert">Expert:</label>
+                    <input type="text" id="expert" name="expert"><br><br>
+                    
+                    <input type="submit" value="Create Appointment">
+                </form>
+            </div>
+            <br><br>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Patient Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Doctor Name</th>
+                        <th>Doctor Photo</th>
+                        <th>Actions</th> <!-- New column for actions -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <% appointments.forEach(appointment => { %>
+                        <tr>
+                            <td><%= appointment.date %></td>
+                            <td><%= appointment.time %></td>
+                            <td><%= appointment.name %></td>
+                            <td><%= appointment.email %></td>
+                            <td><%= appointment.phone %></td>
+                            <td><%= appointment.doctor ? appointment.doctor.name : 'N/A' %></td>
+                            <td>
+                                <% if (appointment.doctor && appointment.doctor.photo && appointment.doctor.photo.data) { %>
+                                    <img src="data:image/jpeg;base64,<%= appointment.doctor.photo.data.toString('base64') %>"
+                                        alt="<%= appointment.doctor.name %> Photo" style="width: 100px; height: 100px;">
+                                <% } else { %>
+                                    N/A
+                                <% } %>
+                            </td>
+                            <td>
+                                <!-- Button to trigger the edit form -->
+                                <button class="edit-button" onclick="toggleEditForm('<%= appointment._id %>')">Edit</button>
+                                <button class="delete-button" onclick="deleteAppointment('<%= appointment._id %>')">Delete</button>
+                            </td>
+                        </tr>
+                        <tr id="editFormRow<%= appointment._id %>" style="display: none;">
+                            <!-- ... (other table cells) ... -->
+                            <td colspan="8">
+                                <form id="updateForm<%= appointment._id %>"
+                                    onsubmit="updateAppointment(event, '<%= appointment._id %>')">
+                                    <label for="date<%= appointment._id %>">Date:</label>
+                                    <input type="date" id="date<%= appointment._id %>" name="date"
+                                        value="<%= appointment.date %>"><br><br>
+
+                                    <label for="time<%= appointment._id %>">Time:</label>
+                                    <input type="time" id="time<%= appointment._id %>" name="time"
+                                        value="<%= appointment.time %>"><br><br>
+
+                                    <label for="name<%= appointment._id %>">Patient Name:</label>
+                                    <input type="text" id="name<%= appointment._id %>" name="name"
+                                        value="<%= appointment.name %>"><br><br>
+
+                                    <label for="email<%= appointment._id %>">Email:</label>
+                                    <input type="email" id="email<%= appointment._id %>" name="email"
+                                        value="<%= appointment.email %>"><br><br>
+
+                                    <label for="phone<%= appointment._id %>">Phone:</label>
+                                    <input type="tel" id="phone<%= appointment._id %>" name="phone"
+                                        value="<%= appointment.phone %>"><br><br>
+
+                                    <label for="expert<%= appointment._id %>">Expert:</label>
+                                    <input type="text" id="expert<%= appointment._id %>" name="expert"
+                                        value="<%= appointment.doctor?.name || 'N/A' %>"><br><br>
+                                    
+                                    <!-- Display doctor's photo -->
+                                    <img src="data:image/jpeg;base64,<%= appointment.doctor?.photo?.data?.toString('base64') %>"
+                                        alt="<%= appointment.doctor?.name %> Photo" style="width: 100px; height: 100px;">
+                                    
+                                    <input type="submit" value="Update Appointment">
+                                    <button type="button" onclick="toggleEditForm('<%= appointment._id %>')">Cancel</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <script>
+// Fetch all appointments
+// Fetch all appointments
+async function fetchAppointments() {
+  try {
+    const response = await fetch('/Appointad');
+    if (!response.ok) {
+      throw new Error('Failed to fetch appointments');
+    }
+
+    const appointmentsHtml = await response.text(); // Get HTML response
+    document.querySelector('.schedule tbody').innerHTML = appointmentsHtml; // Update table with HTML
+  } catch (error) {
+    console.error('Error fetching appointments:', error);
+  }
+}
+// Update an appointment
+// Update an appointment
+async function updateAppointment(event, appointmentId) {
+  event.preventDefault();
+
+  const formData = new FormData(document.getElementById(`updateForm${appointmentId}`));
+  const appointmentData = Object.fromEntries(formData.entries());
+
+  try {
+    const response = await fetch(`/Appointad/${appointmentId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(appointmentData),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to update appointment');
+    }
+
+    const updatedAppointment = await response.json(); // Get the updated appointment
+    updateAppointmentInTable(updatedAppointment); // Update the appointment in the HTML table
+  } catch (error) {
+    console.error('Error updating appointment:', error);
+  }
+}
+
+// Function to update the appointment in the HTML table
+function updateAppointmentInTable(updatedAppointment) {
+  const appointmentRow = document.getElementById(`appointmentRow${updatedAppointment._id}`);
+  appointmentRow.innerHTML = `
+    <td>${updatedAppointment.date}</td>
+    <td>${updatedAppointment.time}</td>
+    <td>${updatedAppointment.name}</td>
+    <td>${updatedAppointment.email}</td>
+    <td>${updatedAppointment.phone}</td>
+    <td>${updatedAppointment.doctor ? updatedAppointment.doctor.name : 'N/A'}</td>
+    <td>
+      ${updatedAppointment.doctor && updatedAppointment.doctor.photo && updatedAppointment.doctor.photo.data ?
+        `<img src="data:image/jpeg;base64,${updatedAppointment.doctor.photo.data.toString('base64')}" alt="${updatedAppointment.doctor.name} Photo" style="width: 100px; height: 100px;">` :
+        'N/A'}
+    </td>
+    <td>
+      <button onclick="toggleEditForm('${updatedAppointment._id}')">Edit</button>
+      <button onclick="deleteAppointment('${updatedAppointment._id}')">Delete</button>
+    </td>
+  `;
+}
+
+// Function to create a new appointment
+        async function createAppointment(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const appointmentData = Object.fromEntries(formData.entries());
+            try {
+                const response = await fetch('/Appointad', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(appointmentData),
+                });
+                if (!response.ok) {
+                    throw new Error('Failed to create appointment');
+                }
+                fetchAppointments();
+                document.getElementById('createForm').style.display = 'none';
+            } catch (error) {
+                console.error('Error creating appointment:', error);
+            }
+        }
+// Update an appointment
+async function updateAppointment(event, appointmentId) {
+  event.preventDefault();
+
+  const formData = new FormData(document.getElementById(`updateForm${appointmentId}`));
+  const appointmentData = Object.fromEntries(formData.entries());
+
+  try {
+    const response = await fetch(`/Appointad/${appointmentId}`, { // Corrected endpoint
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(appointmentData),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to update appointment');
+    }
+
+    fetchAppointments();
+  } catch (error) {
+    console.error('Error updating appointment:', error);
+  }
+}
+
+// Function to delete an appointment
+  async function deleteAppointment(appointmentId) {
+    try {
+      const response = await fetch(`/Appointad/${appointmentId}`, {
+        method: 'DELETE',
+      });
+      if (!response.ok) {
+        throw new Error('Failed to delete appointment');
+      }
+      fetchAppointments(); // Fetch appointments after successful deletion
+    } catch (error) {
+      console.error('Error deleting appointment:', error);
+    }
+  }
+
+  // Function to render appointments in the table
+  function renderAppointments(appointments) {
+    const appointmentsTable = document.querySelector('.schedule tbody');
+    appointmentsTable.innerHTML = '';
+    appointments.forEach(appointment => {
+      const row = `
+        <tr id="appointmentRow${appointment._id}">
+          <td>${appointment.date}</td>
+          <td>${appointment.time}</td>
+          <td>${appointment.name}</td>
+          <td>${appointment.email}</td>
+          <td>${appointment.phone}</td>
+          <td>${appointment.doctor ? appointment.doctor.name : 'N/A'}</td>
+          <td>
+            ${appointment.doctor && appointment.doctor.photo && appointment.doctor.photo.data ?
+              `<img src="data:image/jpeg;base64,${appointment.doctor.photo.data.toString('base64')}" alt="${appointment.doctor.name} Photo" style="width: 100px; height: 100px;">` :
+              'N/A'}
+          </td>
+          <td>
+            <button onclick="toggleEditForm('${appointment._id}')">Edit</button>
+            <button onclick="deleteAppointment('${appointment._id}')">Delete</button>
+          </td>
+        </tr>
+        <tr id="editFormRow${appointment._id}" style="display: none;">
+          <!-- Edit form goes here -->
+        </tr>
+      `;
+      appointmentsTable.insertAdjacentHTML('beforeend', row);
+    });
+  }
+
+  // Fetch appointments when the page loads
+  document.addEventListener('DOMContentLoaded', () => {
+    fetchAppointments();
+  });
+
+  // Function to show/hide the edit form
+  function toggleEditForm(appointmentId) {
+    const editFormRow = document.getElementById(`editFormRow${appointmentId}`);
+    if (editFormRow.style.display === 'none') {
+      editFormRow.style.display = 'table-row';
+    } else {
+      editFormRow.style.display = 'none';
+    }
+  }
+    </script>
+
+    <%- include('layout/footer.ejs') %>
+</body>
+
+
+
+</html>

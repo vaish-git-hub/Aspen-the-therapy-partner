@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Include necessary meta tags, CSS files, and other external resources -->
+    <title>
+        therapistad
+    </title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link href="/img/bg4.png" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=DM+Serif+Display:ital@1&family=Lilita+One&family=Poppins:wght@300;600&family=Rubik:wght@300&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        /* CSS Styles */
+        .therapist-profiles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            /* Adjust the width of each column */
+            gap: 20px;
+            /* Adjust the gap between each profile */
+        }
+
+        .profile {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            overflow: hidden;
+            padding: 20px;
+            background-color: #fff;
+        }
+
+        /* Style for the form inside the therapist1 div */
+        .therapist1 .therapist-form {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+
+        /* Other styling rules for form elements */
+        .therapist1 .therapist-form label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .therapist1 .therapist-form input[type="text"],
+        .therapist1 .therapist-form input[type="file"],
+        .therapist1 .therapist-form textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .therapist1 .therapist-form button[type="submit"] {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .therapist1 .therapist-form button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        /* Style for the "Edit" button */
+        .editButton {
+            background-color: #209aff;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+
+        .editButton:hover {
+            background-color: #286090;
+        }
+
+        /* Style for the "Delete" button */
+        .deleteButton {
+            background-color: #AB7442;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+
+        .deleteButton:hover {
+            background-color: #c9302c;
+        }
+
+        button.addDoctorProfileButton {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button.addDoctorProfileButton:hover {
+            background-color: #45a049;
+        }
+        /* CSS for Add Therapist Form */
+#toggleForm {
+    display: block;
+    margin: 10px auto;
+    padding: 10px 20px;
+    background-color: #AB7442;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.therapist1 {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.therapist1 label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.therapist1 input[type="text"],
+.therapist1 textarea {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.therapist1 input[type="file"] {
+    margin-bottom: 20px;
+}
+
+.image-preview img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.therapist1 button[type="submit"] {
+    padding: 10px 20px;
+    background-color: #AB7442;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.therapist1 button[type="submit"]:hover {
+    background-color: #AB7442;
+}
+
+    </style>
+
+<body>
+    <%- include('layout/header.ejs') %>
+    <button id="toggleForm">Add</button>
+    <div class="therapist1" style="display: none;">
+        <!-- Add therapist profile form -->
+        <form action="/therapistad" method="POST" enctype="multipart/form-data" class="therapist-form">
+            <label for="name">Doctor's Name</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="photo">Upload Doctor's Photo</label>
+            <input type="file" id="image-upload" name="photo" accept="image/*">
+            <div id="image-preview" class="image-preview"></div>
+
+            <label for="bio">Doctor's Bio</label>
+            <textarea id="bio" name="bio" required></textarea>
+
+            <button type="submit" class="addDoctorProfileButton">Add Doctor Profile</button>
+        </form>
+    </div>
+
+
+    <div class="therapist-profiles-grid">
+        <% therapists.forEach(therapist=> { %>
+        <div class="profile" data-id="<%= therapist._id %>">
+            <% if (therapist.photo && therapist.photo.contentType && therapist.photo.data) { %>
+            <img src="data:<%= therapist.photo.contentType %>;base64,<%= therapist.photo.data.toString('base64') %>"
+                alt="Therapist Photo" id="therapistImage_<%= therapist._id %>">
+            <% } else { %>
+            <img src="/img-image.jpg" alt="Default Photo" id="therapistImage_<%= therapist._id %>">
+            <% } %>
+            <h2 id="therapistName_<%= therapist._id %>">
+                <%= therapist.name %>
+            </h2>
+            <p>Bio: <span id="therapistBio_<%= therapist._id %>"><%= therapist.bio %></span>
+            </p>
+            <!-- Edit button -->
+            <button type="button" class="editButton" onclick="showEditForm('<%= therapist._id %>')">Edit</button>
+            <button type="button" class="deleteButton" onclick="deleteTherapist('<%= therapist._id %>')">Delete</button>
+        </div>
+        <!-- Form for editing therapist profile -->
+        <form id="editForm_<%= therapist._id %>" action="/therapistad/<%= therapist._id %>/edit" method="POST"
+            enctype="multipart/form-data" style="display: none;">
+            <label for="edit_name_<%= therapist._id %>">Doctor's Name</label>
+            <input type="text" id="edit_name_<%= therapist._id %>" name="name" required>
+
+            <label for="edit_photo_<%= therapist._id %>">Upload Doctor's Photo</label>
+            <input type="file" id="edit_image-upload_<%= therapist._id %>" name="photo" accept="image/*">
+            <div id="edit_image-preview_<%= therapist._id %>" class="image-preview"></div>
+
+            <label for="edit_bio_<%= therapist._id %>">Doctor's Bio</label>
+            <textarea id="edit_bio_<%= therapist._id %>" name="bio" required></textarea>
+
+            <button type="submit">Save Changes</button>
+        </form>
+        <% }); %>
+    </div>
+
+    </div>
+    <script>
+        // Get the button and form elements
+        const toggleButton = document.getElementById('toggleForm');
+        const therapistForm = document.querySelector('.therapist1');
+
+        // Hide form initially
+        therapistForm.style.display = 'none';
+
+        // Toggle form visibility on button click
+        toggleButton.addEventListener('click', () => {
+            therapistForm.style.display = (therapistForm.style.display === 'none') ? 'block' : 'none';
+        });
+
+
+        // Function to fetch the therapist image and update the UI
+        async function fetchTherapistImageAndUpdateUI(therapistId) {
+            try {
+                const response = await fetch(`/therapistad/${therapistId}/image`);
+                if (response.ok) {
+                    const imageData = await response.json();
+
+                    const therapistImageElement = document.getElementById(`therapistImage_${therapistId}`);
+                    if (therapistImageElement) {
+                        therapistImageElement.src = `data:image/jpeg;base64,${imageData.image}`;
+                    }
+                } else {
+                    throw new Error('Failed to fetch therapist image');
+                }
+            } catch (error) {
+                console.error('Error fetching therapist image:', error);
+            }
+        }
+
+        // Function to show the edit form and handle form submission
+        function showEditForm(therapistId) {
+            const editForm = document.getElementById(`editForm_${therapistId}`);
+            if (editForm) {
+                editForm.style.display = 'block';
+
+                editForm.addEventListener('submit', async (event) => {
+                    event.preventDefault();
+
+                    const formData = new FormData(editForm);
+
+                    try {
+                        const response = await fetch(`/therapistad/${therapistId}/edit`, {
+                            method: 'PUT',
+                            body: formData,
+                        });
+
+                        if (response.ok) {
+                            const data = await response.json();
+                            console.log('Updated therapist:', data.therapist);
+
+                            // Update UI with the new therapist data
+                            const therapistNameElement = document.getElementById(`therapistName_${therapistId}`);
+                            const therapistBioElement = document.getElementById(`therapistBio_${therapistId}`);
+
+                            if (therapistNameElement) {
+                                therapistNameElement.textContent = data.therapist.name;
+                            }
+
+                            if (therapistBioElement) {
+                                therapistBioElement.textContent = data.therapist.bio;
+                            }
+
+                            // Fetch the updated therapist image and update the UI
+                            fetchTherapistImageAndUpdateUI(therapistId);
+                        } else {
+                            console.error('Failed to update therapist');
+                            // Handle update failure
+                        }
+                    } catch (error) {
+                        console.error('Error:', error);
+                    }
+
+                    editForm.style.display = 'none';
+                });
+            } else {
+                console.error(`Edit form with ID editForm_${therapistId} not found`);
+            }
+        }
+
+
+        async function deleteTherapist(therapistId) {
+            try {
+                const response = await fetch(`/therapistad/delete/${therapistId}`, {
+                    method: 'DELETE'
+                });
+
+                if (response.ok) {
+                    console.log(`Therapist with ID ${therapistId} deleted successfully.`);
+                    // Optionally, update the UI or perform any necessary actions upon successful deletion
+                } else {
+                    console.error('Failed to delete therapist.');
+                    // Handle deletion failure - log an error or show a message to the user
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                // Handle network errors or exceptions that occurred during the DELETE request
+            }
+        }
+
+    </script>
+</body>
+
+<%- include('layout/footer.ejs') %>

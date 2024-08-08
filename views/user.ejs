@@ -1,0 +1,237 @@
+<!-- user.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Include necessary meta tags, CSS files, and other external resources -->
+    <title>
+        user 
+    </title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link href="/img/bg4.png" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=DM+Serif+Display:ital@1&family=Lilita+One&family=Poppins:wght@300;600&family=Rubik:wght@300&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            text-align: center;
+            color: rgb(19, 19, 75);
+        }
+
+        .table-container {
+            width: 80%;
+            margin: 0 auto;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            overflow-x: auto;
+            background-color: #fff;
+            border-radius: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table-row {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            margin-bottom: 10px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #AB7442;
+            color: white;
+
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        /* Other styles remain unchanged */
+        tr {
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        tr:hover {
+            background-color: #e2e2e2;
+            transform: scale(1.02);
+        }
+
+        td a {
+            text-decoration: none;
+            margin-right: 5px;
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f5f5f5;
+            color: #333;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        td a:hover {
+            background-color: #e5e5e5;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+
+
+
+
+
+<body>
+    <%- include('layout/header.ejs') %>
+
+
+
+    <h1>User List</h1>
+    <table border="1" cellspacing="0" cellpadding="8">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Security Answer</th>
+                <th>Login Count</th>
+                <th>License Number</th>
+            </tr>
+        </thead>
+<tbody>
+    <% users.forEach(user => { %>
+        <tr id="row-<%= user._id %>">
+            <td>
+                <span class="display-name"><%= user.name %></span>
+                <input type="text" class="edit-name" value="<%= user.name %>" style="display: none;">
+            </td>
+            <td>
+                <span class="display-email"><%= user.email %></span>
+                <input type="text" class="edit-email" value="<%= user.email %>" style="display: none;">
+            </td>
+            <td>
+                <span class="display-role"><%= user.role %></span>
+                <input type="number" class="edit-role" value="<%= user.role %>" style="display: none;">
+            </td>
+            <td>
+                <span class="display-securityAnswer"><%= user.securityAnswer %></span>
+                <input type="text" class="edit-securityAnswer" value="<%= user.securityAnswer %>" style="display: none;">
+            </td>
+            <td>
+                <span class="display-loginCount"><%= user.loginCount %></span>
+                <input type="number" class="edit-loginCount" value="<%= user.loginCount %>" style="display: none;">
+            </td>
+            <td>
+    <span class="display-licenseNumber"><%= user.doctorInfo?.licenseNumber || 'N/A' %></span>
+    <input type="text" class="edit-licenseNumber" value="<%= user.doctorInfo?.licenseNumber || '' %>" style="display: none;">
+</td>
+
+            <td>
+                <button class="edit-btn" data-id="<%= user._id %>">Edit</button>
+                <button class="save-btn" data-id="<%= user._id %>" style="display: none;">Save</button>
+            </td>
+        </tr>
+    <% }); %>
+</tbody>
+
+
+    </table>
+
+   
+<script>
+    // Assuming you have a button with class "edit-button" inside each row of a table
+document.addEventListener('click', function (event) {
+    if (event.target.classList.contains('edit-button')) {
+        // Find the closest row (`tr`) containing the clicked button
+        const row = event.target.closest('tr');
+        
+        // Ensure `row` is defined
+        if (!row) {
+            console.error('Row not found.');
+            return; // Exit if no row is found
+        }
+        
+        // Now you can use the `row` variable safely
+        // For example, you might access the row's data attributes or input elements here
+        const userId = row.dataset.userId; // Assuming `data-user-id` is set on the row
+        const userName = row.querySelector('.user-name').value;
+        const userEmail = row.querySelector('.user-email').value;
+
+        // Continue with your code to edit the user's information
+    }
+});
+
+    document.querySelectorAll('.edit-btn').forEach(button => {
+    button.addEventListener('click', () => {
+        const rowId = button.dataset.id;
+        const row = document.querySelector(`#row-${rowId}`);
+        
+        // Toggle display
+        row.querySelectorAll('span').forEach(span => span.style.display = 'none');
+        row.querySelectorAll('input').forEach(input => input.style.display = 'block');
+        button.style.display = 'none';
+        row.querySelector('.save-btn').style.display = 'block';
+    });
+});
+
+const updatedData = {
+    name: row.querySelector('.edit-name').value,
+    email: row.querySelector('.edit-email').value,
+    role: parseInt(row.querySelector('.edit-role').value),
+    securityAnswer: row.querySelector('.edit-securityAnswer').value,
+    loginCount: parseInt(row.querySelector('.edit-loginCount').value),
+    doctorInfo: {
+        licenseNumber: row.querySelector('.edit-licenseNumber').value || null,
+    }
+};
+
+// Only include the doctorInfo property if it has a licenseNumber value
+if (!updatedData.doctorInfo.licenseNumber) {
+    delete updatedData.doctorInfo;
+}
+
+</script>
+
+    <%- include('layout/footer.ejs') %>
+</body>
+
+
+</html>

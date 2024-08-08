@@ -1,0 +1,460 @@
+<style>
+/* Style for the container */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Style for the form */
+#createForm {
+    margin-top: 20px;
+}
+
+/* Style for the table */
+.table {
+    margin-top: 20px;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Style for table headers */
+.table th {
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    text-align: left;
+}
+
+/* Style for table rows */
+.table td, .table th {
+    border: 1px solid #dee2e6;
+    padding: 10px;
+}
+
+/* Style for table actions column */
+.table .actions {
+    white-space: nowrap;
+}
+
+/* Style for buttons */
+.btn {
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+    cursor: pointer;
+}
+
+/* Style for primary button */
+.btn-primary {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+/* Style for danger button */
+.btn-danger {
+    color: #fff;
+    background-color: #AB7433;
+    border-color: #AB7433;
+}
+
+/* Style for small buttons */
+.btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+}
+
+/* Style for the cancel button */
+.btn-secondary {
+    margin-left: 5px;
+}
+/* Style for form group */
+.form-group {
+    margin-bottom: 1rem;
+}
+
+/* Style for form labels */
+label {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+}
+
+/* Style for form inputs */
+.form-control {
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+/* Style for form submit button */
+.btn-primary[type="submit"] {
+    display: block;
+    width: auto;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    transition: 0.15s;
+}
+
+/* Style for form submit button on hover */
+.btn-primary[type="submit"]:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+/* Style for cancel button */
+.btn-secondary {
+    display: block;
+    width: auto;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    transition: 0.15s;
+}
+
+/* Style for cancel button on hover */
+.btn-secondary:hover {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+</style>
+<body>
+    <div class="container mt-5">
+        <h1>Expert Signups</h1>
+        
+        <button class="btn btn-danger mb-2" onclick="toggleCreateForm()">Add New Expert</button>
+        <div id="createForm" style="display: none;">
+            <h2>Add New Expert</h2>
+            <form id="storyForm" action="/expertsignupad" method="POST" onsubmit="event.preventDefault(); createExpert();">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="cpassword">Confirm Password</label>
+                    <input type="password" class="form-control" id="cpassword" name="cpassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="securityAnswer">Security Answer</label>
+                    <input type="text" class="form-control" id="securityAnswer" name="securityAnswer" required>
+                </div>
+                <div class="form-group">
+                    <label for="licenseNumber">License Number</label>
+                    <input type="text" class="form-control" id="licenseNumber" name="licenseNumber" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Create Expert</button>
+            </form>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Password</th>
+                    <th>Role</th>
+                    <th>Security Answer</th>
+                    <th>License Number</th>
+                   
+                    <th>Actions</th>
+                </tr>
+            </thead>
+           <tbody id="userTableBody">
+ <% users.forEach(user => { %>
+<tr data-id="<%= user._id %>">
+    <td><%= user.name %></td>
+    <td><%= user.email %></td>
+    <td><%= user.password %></td>
+    <td><%= user.role %></td>
+    <td><%= user.securityAnswer %></td>
+    <td><%= user.doctorInfo.licenseNumber %></td>
+    
+    <td>
+        <button class="btn btn-primary btn-sm" onclick="toggleEditForm('<%= user._id %>')">Edit</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteExpert('<%= user._id %>')">Delete</button>
+
+    </td>
+</tr>
+<tr id="editFormContainer_<%= user._id %>" style="display: none;">
+    <td colspan="8">
+        <h2>Edit User</h2>
+        <form id="editForm_<%= user._id %>"
+            onsubmit="event.preventDefault(); editExpert('<%= user._id %>');">
+            <!-- Edit form fields -->
+            <input type="hidden" id="editId_<%= user._id %>" value="<%= user._id %>" />
+            <div class="form-group">
+                <label for="editName_<%= user._id %>">Name</label>
+                <input type="text" class="form-control" id="editName_<%= user._id %>" required
+                    value="<%= user.name %>">
+            </div>
+            <div class="form-group">
+                <label for="editEmail_<%= user._id %>">Email</label>
+                <input type="email" class="form-control" id="editEmail_<%= user._id %>" required
+                    value="<%= user.email %>">
+            </div>
+            <div class="form-group">
+                <label for="editPassword_<%= user._id %>">Password</label>
+                <input type="password" class="form-control" id="editPassword_<%= user._id %>" required
+                    value="<%= user.password %>">
+            </div>
+            <div class="form-group">
+                <label for="editRole_<%= user._id %>">Role</label>
+                <input type="number" class="form-control" id="editRole_<%= user._id %>" required
+                    value="<%= user.role %>">
+            </div>
+            <div class="form-group">
+                <label for="editSecurityAnswer_<%= user._id %>">Security Answer</label>
+                <input type="text" class="form-control" id="editSecurityAnswer_<%= user._id %>"
+                    required value="<%= user.securityAnswer %>">
+            </div>
+            <div class="form-group">
+                <label for="editLicenseNumber_<%= user._id %>">License Number</label>
+                <input type="text" class="form-control" id="editLicenseNumber_<%= user._id %>" required value="<%= user.doctorInfo.licenseNumber %>" %>">
+            </div>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <button type="button" class="btn btn-secondary"
+                onclick="hideEditForm('<%= user._id %>')">Cancel</button>
+        </form>
+    </td>
+</tr>
+<% }); %>
+
+</tbody>
+
+
+
+        </table>
+    </div>
+
+   <script>
+    // Function to toggle create form visibility
+    function toggleCreateForm() {
+        const createForm = document.getElementById('createForm');
+        if (createForm.style.display === 'none') {
+            createForm.style.display = 'block';
+        } else {
+            createForm.style.display = 'none';
+        }
+    }
+
+    // Function to toggle edit form visibility
+    function toggleEditForm(expertId) {
+        const editFormContainer = document.getElementById(`editFormContainer_${expertId}`);
+        if (editFormContainer.style.display === 'none' || editFormContainer.style.display === '') {
+            editFormContainer.style.display = 'table-row';
+        } else {
+            editFormContainer.style.display = 'none';
+        }
+    }
+
+    // Function to hide the edit form
+    function hideEditForm(expertId) {
+        const editFormContainer = document.getElementById(`editFormContainer_${expertId}`);
+        editFormContainer.style.display = 'none';
+    }
+
+async function editExpert(expertId) {
+    const name = document.getElementById(`editName_${expertId}`).value;
+    const email = document.getElementById(`editEmail_${expertId}`).value;
+    const password = document.getElementById(`editPassword_${expertId}`).value;
+    const role = document.getElementById(`editRole_${expertId}`).value;
+    const securityAnswer = document.getElementById(`editSecurityAnswer_${expertId}`).value;
+    const licenseNumber = document.getElementById(`editLicenseNumber_${expertId}`).value;
+
+    const data = {
+        name: name,
+        email: email,
+        password: password,
+        role: role,
+        securityAnswer: securityAnswer,
+        doctorInfo: {
+            licenseNumber: licenseNumber,
+        }
+    };
+
+    try {
+        const response = await fetch(`/expertsignupad/${expertId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        if (response.ok) {
+            const updatedExpert = await response.json();
+
+            // Update the table row with the modified data
+            const expertRow = document.querySelector(`#userTableBody tr[data-id="${expertId}"]`);
+            if (expertRow) {
+                const cells = expertRow.getElementsByTagName('td');
+                cells[0].textContent = updatedExpert.name;
+                cells[1].textContent = updatedExpert.email;
+                cells[2].textContent = updatedExpert.password;
+                cells[3].textContent = updatedExpert.role;
+                cells[4].textContent = updatedExpert.securityAnswer;
+                cells[5].textContent = updatedExpert.doctorInfo.licenseNumber;
+            }
+
+            hideEditForm(expertId);
+        } else {
+            console.error('Failed to update expert');
+        }
+    } catch (error) {
+        console.error('Error updating expert:', error);
+    }
+}
+
+// Function to delete an expert by ID
+async function deleteExpert(expertId) {
+    try {
+        const response = await fetch(`/expertsignupad/${expertId}`, {
+            method: 'DELETE'
+        });
+
+        if (response.ok) {
+            // Remove the deleted expert row from the table
+            const deletedRow = document.querySelector(`#userTableBody tr[data-id="${expertId}"]`);
+            if (deletedRow) {
+                deletedRow.remove();
+            }
+        } else {
+            console.error('Error deleting expert:', response.statusText);
+        }
+    } catch (error) {
+        console.error('Error deleting expert:', error);
+    }
+}
+
+async function createExpert() {
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const cpassword = document.getElementById('cpassword').value; // Include cpassword
+    const securityAnswer = document.getElementById('securityAnswer').value;
+    const licenseNumber = document.getElementById('licenseNumber').value || ''; // Set to empty string if licenseNumber is undefined
+
+    const data = {
+        name: name,
+        email: email,
+        password: password,
+        cpassword: cpassword, // Include cpassword here
+        securityAnswer: securityAnswer,
+        licenseNumber: licenseNumber,
+    };
+
+    try {
+        const response = await fetch('/expertsignupad', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        if (response.ok) {
+            const newExpert = await response.json();
+            console.log('Expert created:', newExpert);
+
+            // Update the expert table
+            const expertTableBody = document.getElementById('userTableBody');
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td>${newExpert.name}</td>
+                <td>${newExpert.email}</td>
+                <td>${newExpert.password}</td>
+                <td>${newExpert.role}</td>
+                <td>${newExpert.securityAnswer}</td>
+                <td>${newExpert.doctorInfo.licenseNumber}</td> <!-- Display licenseNumber -->
+                <td>
+                    <button class="btn btn-primary btn-sm" onclick="toggleEditForm('${newExpert._id}')">Edit</button>
+                    <button class="btn btn-danger btn-sm" onclick="deleteExpert('${newExpert._id}')">Delete</button>
+                </td>
+            `;
+            expertTableBody.appendChild(newRow);
+
+            // Reset the form
+            document.getElementById('name').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('password').value = '';
+            document.getElementById('cpassword').value = '';
+            document.getElementById('securityAnswer').value = '';
+            document.getElementById('licenseNumber').value = '';
+        } else {
+            console.error('Error creating expert:', response.statusText);
+        }
+    } catch (error) {
+        console.error('Error creating expert:', error);
+    }
+}
+
+async function fetchAndPopulateExperts() {
+    try {
+        const response = await fetch('/expertsignupad');
+        const responseData = await response.text(); // Get response as text
+        console.log(responseData); // Log the response text
+        const data = JSON.parse(responseData); // Try parsing the response text as JSON
+        if(response.ok) {
+            const expertTableBody = document.getElementById('userTableBody');
+            expertTableBody.innerHTML = '';
+            data.forEach(expert => {
+                const newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                    <td>${expert.name}</td>
+                    <td>${expert.email}</td>
+                    <td>${expert.password}</td>
+                    <td>${expert.role}</td>
+                    <td>${expert.securityAnswer}</td>
+                    <td>${expert.licenseNumber}</td>
+                    <td>
+                        <button class="btn btn-primary btn-sm" onclick="toggleEditForm('${expert._id}')">Edit</button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteExpert('${expert._id}')">Delete</button>
+                    </td>
+                `;
+                expertTableBody.appendChild(newRow);
+            });
+        } else {
+            console.error('Error fetching experts:', response.statusText);
+        }
+    } catch (error) {
+        console.error('Error fetching experts:', error);
+    }
+}
+
+    // Fetch and populate experts initially
+    window.addEventListener('load', async () => {
+        try {
+            await fetchAndPopulateExperts();
+        } catch (error) {
+            console.error('Error fetching experts:', error);
+        }
+    });
+
+</script>
+
+</body>

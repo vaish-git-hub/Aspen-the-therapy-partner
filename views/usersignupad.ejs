@@ -1,0 +1,307 @@
+<!-- views/usersignupad.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>usersignupad</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Signups</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
+
+<body>
+
+    <div class="container mt-5">
+        <h1>User Signups</h1>
+        <button class="btn btn-primary mb-2" onclick="toggleCreateForm()">Add New User</button>
+        <div id="createForm" style="display: none;">
+            <h2>Add New User</h2>
+            <form id="storyForm" action="/usersignupad" method="POST"
+                onsubmit="event.preventDefault(); createUser();">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="cpassword">Confirm Password</label>
+                    <input type="password" class="form-control" id="cpassword" name="cpassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="securityAnswer">Security Answer</label>
+                    <input type="text" class="form-control" id="securityAnswer" name="securityAnswer" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Create User</button>
+            </form>
+
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Password</th>
+                    <th>Role</th>
+                    <th>Security Answer</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="userTableBody">
+                <!-- Table rows will be dynamically added here -->
+                <% users.forEach(user => { %>
+                <tr>
+                    <td>
+                        <%= user.name %>
+                    </td>
+                    <td>
+                        <%= user.email %>
+                    </td>
+                    <td>
+                        <%= user.password %>
+                    </td>
+                    <td>
+                        <%= user.role %>
+                    </td>
+                    <td>
+                        <%= user.securityAnswer %>
+                    </td>
+                    <td>
+                        <button class="btn btn-primary btn-sm"
+                            onclick="toggleEditForm('<%= user._id %>')">Edit</button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteUser('<%= user._id %>')">Delete</button>
+</td>
+                </tr>
+
+                <!-- Edit User Form - initially hidden -->
+                <tr id="editFormContainer_<%= user._id %>" style="display: none;">
+                    <td colspan="6">
+                        <h2>Edit User</h2>
+                        <form id="editForm_<%= user._id %>"
+                            onsubmit="event.preventDefault(); editUser('<%= user._id %>');">
+                            <!-- Edit form fields -->
+                            <input type="hidden" id="editId_<%= user._id %>" value="<%= user._id %>" />
+                            <div class="form-group">
+                                <label for="editName_<%= user._id %>">Name</label>
+                                <input type="text" class="form-control" id="editName_<%= user._id %>" required
+                                    value="<%= user.name %>">
+                            </div>
+                            <div class="form-group">
+                                <label for="editEmail_<%= user._id %>">Email</label>
+                                <input type="email" class="form-control" id="editEmail_<%= user._id %>" required
+                                    value="<%= user.email %>">
+                            </div>
+                            <div class="form-group">
+                                <label for="editPassword_<%= user._id %>">Password</label>
+                                <input type="password" class="form-control" id="editPassword_<%= user._id %>" required
+                                    value="<%= user.password %>">
+                            </div>
+                            <div class="form-group">
+                                <label for="editRole_<%= user._id %>">Role</label>
+                                <input type="number" class="form-control" id="editRole_<%= user._id %>" required
+                                    value="<%= user.role %>">
+                            </div>
+                            <div class="form-group">
+                                <label for="editSecurityAnswer_<%= user._id %>">Security Answer</label>
+                                <input type="text" class="form-control" id="editSecurityAnswer_<%= user._id %>"
+                                    required value="<%= user.securityAnswer %>">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                            <button type="button" class="btn btn-secondary"
+                                onclick="hideEditForm('<%= user._id %>')">Cancel</button>
+                        </form>
+                    </td>
+                </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Function to toggle create form visibility
+        function toggleCreateForm() {
+            const createForm = document.getElementById('createForm');
+            if (createForm.style.display === 'none') {
+                createForm.style.display = 'block';
+            } else {
+                createForm.style.display = 'none';
+            }
+        }
+
+ // Function to toggle edit form visibility
+  function toggleEditForm(userId) {
+    const editFormContainer = document.getElementById(`editFormContainer_${userId}`);
+    if (editFormContainer.style.display === 'none' || editFormContainer.style.display === '') {
+      editFormContainer.style.display = 'table-row';
+    } else {
+      editFormContainer.style.display = 'none';
+    }
+  }
+
+  // Function to hide the edit form
+  function hideEditForm(userId) {
+    const editFormContainer = document.getElementById(`editFormContainer_${userId}`);
+    editFormContainer.style.display = 'none';
+  }
+
+async function editUser(userId) {
+        const name = document.getElementById(`editName_${userId}`).value;
+        const email = document.getElementById(`editEmail_${userId}`).value;
+        const password = document.getElementById(`editPassword_${userId}`).value;
+        const role = document.getElementById(`editRole_${userId}`).value;
+        const securityAnswer = document.getElementById(`editSecurityAnswer_${userId}`).value;
+
+        const data = {
+            name: name,
+            email: email,
+            password: password,
+            role: role,
+            securityAnswer: securityAnswer
+        };
+
+        try {
+            const response = await fetch(`/usersignupad/${userId}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            if (response.ok) {
+                const updatedUser = await response.json();
+
+                const userRow = document.querySelector(`#userTableBody tr[data-id="${userId}"]`);
+                if (userRow) {
+                    const cells = userRow.getElementsByTagName('td');
+                    cells[0].textContent = updatedUser.name;
+                    cells[1].textContent = updatedUser.email;
+                    cells[2].textContent = updatedUser.password;
+                    cells[3].textContent = updatedUser.role;
+                    cells[4].textContent = updatedUser.securityAnswer;
+                }
+
+                hideEditForm(userId);
+
+                // Fetch and populate users again after editing
+                await fetchAndPopulateUsers();
+            } else {
+                console.error('Failed to update user');
+            }
+        } catch (error) {
+            console.error('Error updating user:', error);
+        }
+    }
+
+// Function to delete a user by ID
+async function deleteUser(id) {
+    try {
+        const response = await fetch(`/usersignupad/${id}`, {
+            method: 'DELETE'
+        });
+
+        if (response.ok) {
+            // Fetch and populate users again after successful deletion
+            await fetchAndPopulateUsers();
+        } else {
+            console.error('Error deleting user:', response.statusText);
+        }
+    } catch (error) {
+        console.error('Error deleting user:', error);
+    }
+}
+
+        async function createUser() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const cpassword = document.getElementById('cpassword').value;
+            const securityAnswer = document.getElementById('securityAnswer').value;
+
+            const data = {
+                name: name,
+                email: email,
+                password: password,
+                cpassword: cpassword,
+                securityAnswer: securityAnswer
+            };
+
+            try {
+                const response = await fetch('/usersignupad', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    const newUser = await response.json();
+                    console.log('User created:', newUser);
+
+                    // Update the user table
+                    const userTableBody = document.getElementById('userTableBody');
+                    const newRow = document.createElement('tr');
+                    newRow.innerHTML = `
+                        <td>${newUser.name}</td>
+                        <td>${newUser.email}</td>
+                        <td>${newUser.password}</td>
+                        <td>${newUser.role}</td>
+                        <td>${newUser.securityAnswer}</td>
+                        <td>
+                            <button class="btn btn-primary btn-sm" onclick="toggleEditForm('${newUser._id}')">Edit</button>
+                            <button class="btn btn-danger btn-sm" onclick="deleteUser('${newUser._id}')">Delete</button>
+                        </td>
+                    `;
+                    userTableBody.appendChild(newRow);
+
+                    // Reset the form
+                    document.getElementById('name').value = '';
+                    document.getElementById('email').value = '';
+                    document.getElementById('password').value = '';
+                    document.getElementById('cpassword').value = '';
+                    document.getElementById('securityAnswer').value = '';
+                } else {
+                    console.error('Error creating user:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Error creating user:', error);
+            }
+        }
+ async function fetchAndPopulateUsers() {
+        try {
+            const response = await fetch('/usersignupad');
+            const data = await response.text();
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(data, 'text/html');
+            const userRows = doc.querySelectorAll('#userTableBody tr');
+            const userTableBody = document.getElementById('userTableBody');
+            userTableBody.innerHTML = '';
+            userRows.forEach(row => {
+                userTableBody.appendChild(row);
+            });
+        } catch (error) {
+            console.error('Error fetching users:', error);
+        }
+    }     
+    // Fetch and populate users initially
+        window.addEventListener('load', async () => {
+            try {
+                await fetchAndPopulateUsers();
+            } catch (error) {
+                console.error('Error fetching users:', error);
+            }
+        });
+
+    </script>
+</body>
+
+</html>

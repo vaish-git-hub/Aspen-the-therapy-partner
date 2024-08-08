@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Story Table</title>
+    <!-- Include Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h1>Stories</h1>
+        <h2>Add New Story</h2>
+        <form id="createForm" onsubmit="event.preventDefault(); createStory();">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" class="form-control" id="title" required>
+            </div>
+            <div class="form-group">
+                <label for="content">Content</label>
+                <textarea class="form-control" id="content" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="imageUrl">Image URL</label>
+                <input type="text" class="form-control" id="imageUrl" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Create Story</button>
+        </form>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Content</th>
+                    <th>Image</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="storyTableBody">
+                <!-- Table rows will be dynamically added here -->
+                <% stories.forEach(story=> { %>
+                    <tr>
+                        <td>
+                            <%= story.title %>
+                        </td>
+                        <td>
+                            <%= story.content %>
+                        </td>
+                        <td><img src="<%= story.imageUrl %>" style="max-width: 100px; max-height: 100px;"></td>
+                        <td>
+                            <button class="btn btn-primary btn-sm"
+                                onclick="toggleEditForm('<%= story._id %>')">Edit</button>
+                            <button class="btn btn-danger btn-sm"
+                                onclick="deleteStory('<%= story._id %>')">Delete</button>
+                        </td>
+                    </tr>
+
+                    <!-- Edit Story Form - initially hidden -->
+                    <tr id="editFormContainer_<%= story._id %>" style="display: none;">
+                        <td colspan="4">
+                            <h2>Edit Story</h2>
+                            <form id="editForm_<%= story._id %>" onsubmit="event.preventDefault(); editStory('<%= story._id %>');">
+                                <!-- Edit form fields -->
+                                <input type="hidden" id="editId_<%= story._id %>" value="<%= story._id %>" />
+                                <div class="form-group">
+                                    <label for="editTitle_<%= story._id %>">Title</label>
+                                    <input type="text" class="form-control" id="editTitle_<%= story._id %>"
+                                        required value="<%= story.title %>">
+                                </div>
+                                <div class="form-group">
+                                    <label for="editContent_<%= story._id %>">Content</label>
+                                    <textarea class="form-control" id="editContent_<%= story._id %>"
+                                        required><%= story.content %></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="editImageUrl_<%= story._id %>">Image URL</label>
+                                    <input type="text" class="form-control" id="editImageUrl_<%= story._id %>"
+                                        required value="<%= story.imageUrl %>">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                                <button type="button" class="btn btn-secondary"
+                                    onclick="hideEditForm('<%= story._id %>')">Cancel</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Function to toggle edit form visibility
+        function toggleEditForm(storyId) {
+            const editFormContainer = document.getElementById(`editFormContainer_${storyId}`);
+            if (editFormContainer.style.display === 'none' || editFormContainer.style.display === '') {
+                editFormContainer.style.display = 'table-row';
+            } else {
+                editFormContainer.style.display = 'none';
+            }
+        }
+
+        // Function to hide the edit form
+        function hideEditForm(storyId) {
+            const editFormContainer = document.getElementById(`editFormContainer_${storyId}`);
+            editFormContainer.style.display = 'none';
+        }
+
+       // Function to handle form submission for editing a story
+async function editStory(storyId) {
+    const updatedData = {
+        title: document.getElementById(`editTitle_${storyId}`).value,
+        content: document.getElementById(`editContent_${storyId}`).value,
+        imageUrl: document.getElementById(`editImageUrl_${storyId}`).value
+    };
+
+    try {
+        const response = await fetch(`/storyad/${storyId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updatedData)
+        });
+
+        if (response.ok) {
+            // Handle successful update
+            const updatedStory = await response.json();
+
+            // Update the table row with the new data
+            const storyRow = document.querySelector(`#storyTableBody tr[data-id="${storyId}"]`);
+            if (storyRow) {
+                const cells = storyRow.getElementsByTagName('td');
+                cells[0].textContent = updatedStory.title;
+                cells[1].textContent = updatedStory.content;
+                cells[2].innerHTML = `<img src="${updatedStory.imageUrl}" style="max-width: 100px; max-height: 100px;">`;
+            }
+
+            // Hide the edit form
+            hideEditForm(storyId);
+        } else {
+            console.error('Failed to update story');
+        }
+    } catch (error) {
+        console.error('Error updating story:', error);
+    }
+}
+// Function to delete a story by ID
+async function deleteStory(id) {
+    try {
+        const response = await fetch(`/storyad/${id}`, {
+            method: 'DELETE'
+        });
+
+        if (response.ok) {
+            const storyRow = document.querySelector(`#storyTableBody tr[data-id="${id}"]`);
+            if (storyRow) {
+                storyRow.remove();
+            }
+        } else {
+            console.error('Error deleting story:', response.statusText);
+        }
+    } catch (error) {
+        console.error('Error deleting story:', error);
+    }
+}
+
+      // Function to fetch stories and populate the table initially
+async function fetchAndPopulateStories() {
+    const storyTableBody = document.getElementById('storyTableBody');
+    try {
+        const response = await fetch('/storyad');
+        if (!response.ok) {
+            throw new Error('Error fetching stories');
+        }
+        const html = await response.text();
+        storyTableBody.innerHTML = html;
+    } catch (error) {
+        console.error('Error fetching stories:', error);
+    }
+}
+// Function to create a new story
+        async function createStory() {
+            const title = document.getElementById('title').value;
+            const content = document.getElementById('content').value;
+            const imageUrl = document.getElementById('imageUrl').value;
+
+            const data = {
+                title: title,
+                content: content,
+                imageUrl: imageUrl
+            };
+
+            try {
+                const response = await fetch('/storyad', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    const newStory = await response.json();
+                    const storyTableBody = document.getElementById('storyTableBody');
+
+                    const newRow = document.createElement('tr');
+                    newRow.setAttribute('data-id', newStory._id);
+                    newRow.innerHTML = `
+                        <td>${newStory.title}</td>
+                        <td>${newStory.content}</td>
+                        <td><img src="${newStory.imageUrl}" style="max-width: 100px; max-height: 100px;"></td>
+                        <td>
+                            <button class="btn btn-primary btn-sm" onclick="toggleEditForm('${newStory._id}')">Edit</button>
+                            <button class="btn btn-danger btn-sm" onclick="deleteStory('${newStory._id}')">Delete</button>
+                        </td>
+                    `;
+
+                    storyTableBody.appendChild(newRow);
+
+                    // Clear the form
+                    document.getElementById('title').value = '';
+                    document.getElementById('content').value = '';
+                    document.getElementById('imageUrl').value = '';
+                } else {
+                    console.error('Error creating story:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Error creating story:', error);
+            }
+        }
+
+        // Fetch and populate stories initially
+        window.addEventListener('load', async () => {
+            try {
+                const response = await fetch('/storyad');
+                if (!response.ok) {
+                    throw new Error('Error fetching stories');
+                }
+                const stories = await response.json();
+                const storyTableBody = document.getElementById('storyTableBody');
+
+                stories.forEach(story => {
+                    const newRow = document.createElement('tr');
+                    newRow.setAttribute('data-id', story._id);
+                    newRow.innerHTML = `
+                        <td>${story.title}</td>
+                        <td>${story.content}</td>
+                        <td><img src="${story.imageUrl}" style="max-width: 100px; max-height: 100px;"></td>
+                        <td>
+                            <button class="btn btn-primary btn-sm" onclick="toggleEditForm('${story._id}')">Edit</button>
+                            <button class="btn btn-danger btn-sm" onclick="deleteStory('${story._id}')">Delete</button>
+                        </td>
+                    `;
+
+                    storyTableBody.appendChild(newRow);
+                });
+            } catch (error) {
+                console.error('Error fetching stories:', error);
+            }
+        });
+        
+    </script>
+</body>
+

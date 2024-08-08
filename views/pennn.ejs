@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>
+        pennn
+    </title>
+
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link href="/img/bg4.png" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=DM+Serif+Display:ital@1&family=Lilita+One&family=Poppins:wght@300;600&family=Rubik:wght@300&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+
+    <style>
+        /* Hover effects */
+        .button:hover,
+        .close-button:hover {
+            opacity: 0.8;
+        }
+
+        .share-icon:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* Styles for the Twitter-style popup container */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+
+        .popup-content {
+            background-color: #fff;
+            width: 90%;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 10px;
+            position: relative;
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+        }
+
+        /* Style for the close button (×) */
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* Style for the popup title */
+        .popup-content h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        /* Style for the popup content */
+        .popup-content p {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .post-container {
+            margin-bottom: 20px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        #post-text {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        #post-button {
+            margin-top: 10px;
+            background-color: #ad7442;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #post-button:hover {
+            background-color: #162738;
+        }
+
+        .post {
+            margin: 20px 0;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        #openPopupButton {
+            background-color: #ad7442;
+            /* Twitter blue color */
+            color: #fff;
+            /* White text color */
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            outline: none;
+            transition: background-color 0.3s ease;
+            margin-left: 30px;
+            margin-top: 20px;
+        }
+
+        #openPopupButton:hover {
+            background-color: #ad7442;
+            /* Slightly darker blue on hover */
+        }
+
+
+        .tweet {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .author {
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+        }
+
+        .tweet-text {
+            margin-top: 10px;
+            font-size: 18px;
+        }
+
+        .buttons {
+            display: flex;
+
+            margin-top: 20px;
+        }
+
+        .button {
+            flex: 0 0 auto;
+            /* Prevent flex from growing the button width */
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 5px 10px;
+            /* Adjusted padding for narrower buttons */
+            border-radius: 5px;
+            font-weight: bold;
+            margin-right: 0px;
+            margin: 10px;
+        }
+
+        .like-button {
+            background-color: #ff6b6b;
+            color: #fff;
+        }
+
+        .comment-button {
+            background-color: #6c757d;
+            color: #fff;
+        }
+
+        .share-button {
+            background-color: #1da1f2;
+            color: #fff;
+        }
+
+        .icon {
+            margin-right: 5px;
+        }
+
+        .timestamp {
+            font-size: 12px;
+            color: #888;
+        }
+
+        /* Comment section */
+        .comment-section {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .comment-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .share-icon {
+            font-size: 24px;
+            margin-right: 10px;
+            text-decoration: none;
+            color: #000;
+            /* Change the color to match your design */
+        }
+
+        /* Example CSS to style the success message */
+        .success-message {
+            background-color: #dff0d8;
+            /* Light green background */
+            color: #3c763d;
+            /* Dark green text */
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        .comment-section {
+            display: none;
+        }
+
+        .comment-section.show {
+            display: block;
+        }
+        
+    /* Add some styling for the modal */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-content {
+        background-color: white;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 300px;
+        text-align: center;
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+
+    .share-link {
+        display: block;
+        margin: 10px 0;
+    }
+    /* Style for the pen element */
+.pen {
+    border: 1px solid #ccc; /* Add a border */
+    padding: 10px; /* Add padding */
+    margin: 10px 0; /* Add margin */
+}
+
+/* Style for the comment section */
+.comment-section {
+    margin-top: 10px; /* Add some spacing above the comment section */
+    display: none; /* Initially hide the comment section */
+}
+
+/* Style for the comment input textarea */
+.comment-input {
+    width: 100%; /* Make the textarea full-width */
+    height: 80px; /* Set a default height */
+    padding: 5px; /* Add padding */
+    margin-bottom: 10px; /* Add some spacing below the textarea */
+    border: 1px solid #ccc; /* Add a border */
+    border-radius: 4px; /* Add rounded corners */
+    box-sizing: border-box; /* Ensure padding doesn't affect width */
+}
+
+/* Style for the comment submit button */
+.comment-button {
+    background-color: #007BFF; /* Bootstrap primary color */
+    color: white; /* White text color */
+    padding: 5px 10px; /* Add padding */
+    border: none; /* Remove default border */
+    border-radius: 4px; /* Add rounded corners */
+    cursor: pointer; /* Change cursor to pointer on hover */
+}
+
+/* Button hover effect */
+.comment-button:hover {
+    background-color: #0056b3; /* Darken the button color on hover */
+}
+
+        
+    </style>
+
+
+</head>
+
+<body>
+    <%- include('layout/header.ejs') %>
+
+        <!-- Initially, only the "Post Stories" button is visible-->
+        <button id="openPopupButton">Post Stories</button>
+
+        <!-- Popup container for posting stories -->
+        <div id="popupContainer" class="popup">
+            <div class="popup-content">
+
+                <span class="close" id="closePopupButton">&times;</span>
+                <h2>Share Your Story</h2>
+                <form id="post-form" method="post">
+
+                    <div class="post-container">
+                        <textarea id="post-text" placeholder="Write your story..."></textarea>
+                        <button id="post-button" type="submit">Post</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+        <!-- Main content container -->
+        <div id="container-to-display" style="display: none;">
+
+            <!-- Content goes here -->
+            <!-- Your HTML structure -->
+            <div id="story-container">
+
+            </div>
+
+        </div>
+        <div class="comment-section" id="comments-1" style="display: none;">
+            <img class="avatar comment-avatar" src="img/avtar.jpg" alt="User Avatar">
+            <textarea id="comment-input" class="comment-input" placeholder="Write a comment..."></textarea>
+            <button class="button comment-button" onclick="submitComment('${pen._id}')">Submit</button>
+            <!-- Comments will be dynamically added here -->
+        </div>
+
+        <!-- Popup for sharing options-->
+        <div id="sharePopup" class="popup" style="display: none;">
+            <div class="popup-content">
+                <span class="close" onclick="closeSharePopup()" id="closeSharePopupButton">&times;</span>
+                <h2>Share This Story</h2>
+                <div class="share-icons">
+                    <a href="https://twitter.com/i/flow/login" class="share-icon" onclick="shareStory('twitter')"><img
+                            src="/img/twitter.png" alt="Twitter" height="50px" width="50px"></a>
+                    <a href="https://www.facebook.com/login/" class="share-icon" onclick="shareStory('facebook')"><img
+                            src="/img/facebook.png" alt="Facebook" height="50px" width="50px"></a>
+                    <a href="https://www.linkedin.com/home" class="share-icon" onclick="shareStory('linkedin')"><img
+                            src="/img/linkedin.png" alt="LinkedIn" height="50px" width="50px"></a>
+                    <a href="https://web.whatsapp.com/" class="share-icon" onclick="shareStory('whatsapp')"><img
+                            src="/img/whatsapp.png" alt="WhatsApp" height="50px" width="50px"></a>
+                    <a href="https://www.instagram.com/accounts/login/?hl=en" class="share-icon"
+                        onclick="shareStory('instagram')"><img src="/img/instagram.png" alt="Instagram" height="50px"
+                            width="50px"></a>
+                </div>
+            </div>
+        </div>
+        </div>
+        <!-- <script>
+
+            // Your JavaScript logic goes here
+            const openPopupButton = document.getElementById('openPopupButton');
+            const closePopupButton = document.getElementById('closePopupButton');
+            const closeSharePopupButton = document.getElementById('closeSharePopupButton');
+            const popupContainer = document.getElementById('popupContainer');
+            const containerToDisplay = document.getElementById('container-to-display');
+            const storyContainer = document.getElementById('story-container');
+            const postText = document.getElementById("post-text");
+            const postButton = document.getElementById("post-button");
+            const sharePopup = document.getElementById('sharePopup');
+
+            // Initially, the main content container is hidden
+            containerToDisplay.style.display = 'none';
+
+            // Function to open the popup for posting stories
+            function openPopup() {
+                popupContainer.style.display = 'block';
+            }
+
+            // Function to close the popup
+            function closePopup() {
+                popupContainer.style.display = 'none';
+            }
+
+            function openSharePopup() {
+                sharePopup.style.display = 'block';
+            }
+
+            function closeSharePopup() {
+                sharePopup.style.display = 'none';
+            }
+            // Event listeners
+            openPopupButton.addEventListener('click', openPopup);
+            closePopupButton.addEventListener('click', closePopup);
+            closeSharePopupButton.addEventListener('click', closeSharePopup);
+
+
+            function likePen(penId) {
+                console.log(`Received like data for pen ${penId}`);
+
+                // Update the like count for the clicked pen
+                const likeButton = document.querySelector(`#pen-${penId} .like-button`);
+                if (likeButton) {
+                    const likeCountElement = likeButton.querySelector('.action');
+                    const currentLikeCount = parseInt(likeCountElement.textContent.match(/\d+/)[0]);
+                    const newLikeCount = currentLikeCount + 1; // Increment by 1
+
+                    // Update the like count in the UI
+                    likeCountElement.textContent = `Like (${newLikeCount})`;
+
+                    console.log(`Updated like count for pen ${penId}. New count: ${newLikeCount}`);
+                }
+            }
+            function sharePen(penId) {
+                console.log(`Share button clicked for pen ID: ${penId}`);
+
+                fetch(`/pennn/share/${penId}`, {
+                    method: 'POST',
+                    // You might need to pass additional data or headers as required
+                })
+                    .then((response) => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then((data) => {
+                        const shareCountElement = document.getElementById(`sharedCount-${penId}`);
+                        if (shareCountElement) {
+                            shareCountElement.textContent = `Share (${data.shareCount})`;
+                        }
+                        // Additional UI updates or success messages
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                        // Handle errors gracefully, display an error message, etc.
+                    });
+            }
+
+
+
+            // Function to handle reporting action
+            function reportPen(penId) {
+                // Display the modal for reporting with reasons
+                const reportModal = document.getElementById('reportModal');
+                reportModal.style.display = 'block';
+            }
+            function submitReport(penId) {
+                const reason = document.getElementById('reportReason').value;
+
+                fetch(`/pennn/report/${penId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ reason })
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Failed to submit report');
+                        }
+                        // Handle successful report submission (e.g., close the modal)
+                        closeReportModal();
+                    })
+                    .catch(error => {
+                        console.error('Error submitting report:', error);
+                        // Handle the error (e.g., display an error message)
+                    });
+            }
+
+            // Function to open the report modal
+            function openReportModal() {
+                const modal = document.getElementById('reportModal');
+                modal.style.display = 'block';
+            }
+
+            // Function to close the report modal
+            function closeReportModal() {
+                const modal = document.getElementById('reportModal');
+                modal.style.display = 'none';
+            }
+
+            // Function to display a success message after posting a story
+            function displaySuccessMessage() {
+                const successMessage = document.createElement('p');
+                successMessage.textContent = 'Story posted successfully!';
+                successMessage.classList.add('success-message');
+                storyContainer.appendChild(successMessage);
+            }
+
+            function addPen(pen) {
+                // Check if a pen with the same ID already exists
+                const existingPen = document.getElementById(`pen-${pen._id}`);
+
+                if (!existingPen) {
+                    const penDiv = document.createElement('div');
+                    penDiv.id = `pen-${pen._id}`;
+                    penDiv.classList.add('pen');
+                    penDiv.innerHTML = `
+            <p class="pen-text">${pen.text}</p>
+            <div class="buttons">
+                <div class="button like-button" onclick="performAction('like', '${pen._id}')">
+                    <span class="icon">❤️</span> <span class="action">Like(0)</span>
+                </div>
+                <div class="button share-button" onclick="openSharePopup('share', '${pen._id}')">
+                    <span class="icon">🔁</span> <span class="action"  id="sharedCount-${pen._id}">Share(0)</span>
+                </div>
+                <!-- Toggle comment button 
+                <div class="button comment-button" onclick="toggleComment(this)">
+                <span class="icon">💬</span> <span class="action">Comment</span>
+            </div>
+                <button class="button report-button" onclick="performAction('report', '${pen._id}')">
+                    <span class="icon">⚠️</span> <span class="action">Report</span>
+                </button>
+                
+            </div>
+            <p class="timestamp">Posted a few seconds ago</p>
+            <!-- Comment section 
+        <div class="comment-section" style="display: none;">
+            <img class="avatar comment-avatar" src="img/avtar.jpg" alt="User Avatar">
+            <textarea class="comment-input" placeholder="Write a comment..."></textarea>
+            <button class="button comment-button" onclick="submitComment('${pen._id}')">Submit</button>
+            <!-- Comments will be dynamically added here --
+            <div class="comments"></div>
+        </div>
+    `;
+
+
+                    storyContainer.appendChild(penDiv);
+                    // Set the initial like count
+                    const likeButton = penDiv.querySelector('.like-button');
+                    if (likeButton) {
+                        const likeCountElement = likeButton.querySelector('.action');
+                        likeCountElement.textContent = `Like (${pen.likes})`;
+                    }
+                    // Inside addPen function
+                    const shareButton = penDiv.querySelector('.share-button');
+                    if (shareButton) {
+                        shareButton.addEventListener('click', function () {
+                            sharePen(pen._id);
+                        });
+                    }
+                    // Create a button for reporting and append it to the penDiv
+                    const reportButton = document.createElement('button');
+                    reportButton.textContent = 'Report';
+                    reportButton.onclick = function () {
+                        submitReport(pen._id);
+                    };
+                }
+            }
+
+            // // Function to toggle the comment section
+            // function toggleComment(button) {
+            //     const commentSection = button.parentElement.parentElement.querySelector('.comment-section');
+            //     commentSection.style.display = commentSection.style.display === 'none' ? 'block' : 'none';
+            // }
+            // function submitComment(penId) {
+
+            //     const commentInput = document.querySelector('.comment-input');
+            //     const commentText = commentInput ? commentInput.value.trim() : '';
+
+            //     if (commentText !== '') {
+            //         fetch(`/pennn/comments/${penId}`, {
+            //             method: 'POST',
+            //             headers: {
+            //                 'Content-Type': 'application/json',
+            //             },
+            //             body: JSON.stringify({ text: commentText }),
+            //         })
+            //             .then((response) => response.json())
+            //             .then((data) => {
+            //                 console.log('Comment added:', data);
+            //                 // Implement logic to handle the added comment if needed
+            //             })
+            //             .catch((error) => {
+            //                 console.error(error);
+            //             });
+            //     } else {
+            //         console.log('Comment text is empty');
+            //     }
+            // }
+
+
+            function toggleComment(button) {
+                const commentSection = button.parentElement.parentElement.querySelector('.comment-section');
+                commentSection.style.display = commentSection.style.display === 'none' ? 'block' : 'none';
+            }
+            // function submitComment(penId) {
+            //     const commentInput = document.querySelector('#comment-input');
+            //     const commentText = commentInput.value.trim();
+            //     console.log('Comment text:', commentText);
+
+            //     // Check if the comment is not empty
+            //     if (commentText !== '') {
+            //         // Make a fetch or AJAX request to submit the comment to the backend
+            //         fetch(`/pennn/comments/${penId}`, {
+            //             method: 'POST',
+            //             headers: {
+            //                 'Content-Type': 'application/json',
+            //             },
+            //             body: JSON.stringify({ text: commentText }), // Send comment text in the request body
+            //         })
+            //             .then((response) => {
+            //                 if (response.ok) {
+            //                     // Comment submitted successfully
+            //                     // You can handle the success case here (e.g., show a success message)
+            //                     console.log('Comment submitted successfully');
+            //                 } else {
+            //                     // Handle error scenarios
+            //                     console.error('Error submitting comment');
+            //                 }
+            //             })
+            //             .catch((error) => {
+            //                 console.error('Error:', error);
+            //             });
+            //     } else {
+            //         // Alert the user if the comment is empty
+            //         console.log('Comment text is empty');
+            //     }
+            // }
+            function submitComment(penId) {
+                const commentInput = document.querySelector(`#pen-${penId} .comment-input`);
+                const commentText = commentInput.value.trim();
+
+                if (commentText !== '') {
+                    fetch(`/pennn/comments/${penId}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ text: commentText }),
+                    })
+                        .then((response) => {
+                            if (response.ok) {
+                                console.log('Comment submitted successfully');
+                                // Assuming you want to display the comment on submission
+                                displayComment(penId, commentText);
+                                commentInput.value = ''; // Clear the input field after submission
+                            } else {
+                                console.error('Error submitting comment');
+                            }
+                        })
+                        .catch((error) => {
+                            console.error('Error:', error);
+                        });
+                } else {
+                    console.log('Comment text is empty');
+                }
+            }
+
+            function displayComment(penId, commentText) {
+                // Implement logic to display the comment in the UI
+                const commentsContainer = document.querySelector(`#pen-${penId} .comments`);
+                const commentDiv = document.createElement('div');
+                commentDiv.classList.add('comment');
+                commentDiv.textContent = commentText;
+                commentsContainer.appendChild(commentDiv);
+            }
+
+
+            // // Function to display a new comment in the UI
+            //             function displayComment(button, commentText) {
+            //                 const commentDiv = document.createElement('div');
+            //                 commentDiv.classList.add('comment');
+
+            //                 const userAvatar = document.createElement('img');
+            //                 userAvatar.classList.add('avatar', 'comment-avatar');
+            //                 userAvatar.src = 'img/avtar.jpg';
+            //                 userAvatar.alt = 'User Avatar';
+
+            //                 const commentTextDiv = document.createElement('div');
+            //                 commentTextDiv.classList.add('comment-text');
+            //                 commentTextDiv.textContent = commentText;
+
+            //                 commentDiv.appendChild(userAvatar);
+            //                 commentDiv.appendChild(commentTextDiv);
+
+            //                 const commentsContainer = button.parentElement.parentElement.querySelector('.comments');
+            //                 commentsContainer.appendChild(commentDiv);
+            //             }
+
+            // Function to perform an action like like, share, report, or comment
+            function performAction(action, penId) {
+                fetch(`/pennn/${action}/${penId}`, {
+                    method: 'POST',
+                })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        if (action === 'like') {
+                            likePen(penId, data.likes);
+
+                        } else if (action === 'share') {
+
+                            sharePen(penId);// Update the share button or count if needed
+                            // You can implement your own logic to reflect the share action
+                        } else if (action === 'report') {
+                            reportPen(penId);
+                            // Handle reporting logic here
+                            // You can customize this route as needed
+                        }
+                        else if (action === 'comment') {
+                            // Implement comment logic
+                            submitComment(data.penId);
+                        } else {
+                            console.error('Invalid action');
+                        }
+                        // Add logic for comment if needed
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+            }
+            // function toggleComment(penId) {
+            //     console.log(`Toggling comment section for penId: ${penId}`);
+            //     const commentSection = document.getElementById(`comments-${penId}`);
+            //     if (commentSection) {
+            //         if (commentSection.style.display === 'none' || commentSection.style.display === '') {
+            //             commentSection.style.display = 'block';
+            //         } else {
+            //             commentSection.style.display = 'none';
+            //         }
+            //     } else {
+            //         console.error(`Comment section with ID 'comments-${penId}' not found.`);
+            //     }
+            // }
+
+            // async function submitComment(penId) {
+            //     const commentInput = document.getElementById(`comments-${penId}`).querySelector('.comment-input');
+            //     const commentText = commentInput.value.trim();
+
+            //     if (commentText !== '') {
+            //         try {
+            //             const response = await fetch(`/pennn/${penId}/comments`, {
+            //                 method: 'POST',
+            //                 headers: {
+            //                     'Content-Type': 'application/json',
+            //                 },
+            //                 body: JSON.stringify({ text: commentText }),
+            //             });
+
+            //             if (!response.ok) {
+            //                 throw new Error('Failed to add comment');
+            //             }
+
+            //             // Comment added successfully, perform necessary UI updates
+            //             // For example, clear input, display success message, etc.
+            //             commentInput.value = '';
+            //             console.log('Comment added successfully!');
+            //         } catch (error) {
+            //             console.error('Error adding comment:', error);
+            //             // Handle errors gracefully, display an error message, etc.
+            //         }
+            //     }
+            // }
+
+            const postForm = document.getElementById('post-form');
+            postForm.addEventListener('submit', async (e) => {
+                e.preventDefault(); // Prevent the default form submission behavior
+                const postText = document.getElementById('post-text').value.trim();
+
+                if (postText !== '') {
+                    try {
+                        const response = await fetch('/pennn', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({ text: postText }),
+                        });
+
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+
+                        const newPen = await response.json();
+                        addPen(newPen); // Add the new story to the existing list
+                        displaySuccessMessage(); // Display success message
+                        document.getElementById('post-text').value = ''; // Clear the input field
+
+                        // Update local storage with the new pens
+                        const storedPennss = JSON.parse(localStorage.getItem('pennss')) || [];
+                        const updatedPennss = [...storedPennss, newPen];
+                        localStorage.setItem('pennss', JSON.stringify(updatedPennss));
+                        closePopup();
+                    } catch (error) {
+                        console.error('Error:', error);
+                    }
+                }
+            });
+
+
+            // // Load stories when the page is loaded
+            // window.onload = async () => {
+            //     const storedPennss = JSON.parse(localStorage.getItem('pennss')) || [];
+            //     const pennss = storedPennss.length ? storedPennss : await fetchPennss();
+
+            //     // Display existing pens
+            //     pennss.forEach((pen) => {
+            //         addPen(pen);
+            //     });
+
+            //     // Show the main content container
+            //     containerToDisplay.style.display = 'block';
+            // };
+            // window.onload = async () => {
+            //     try {
+            //         const response = await fetch('/pennn/all');  // Assuming an endpoint to fetch all stories
+            //         if (!response.ok) {
+            //             throw new Error('Network response was not ok');
+            //         }
+
+            //         const pennss = await response.json();
+
+            //         // Display existing pens
+            //         pennss.forEach((pen) => {
+            //             addPen(pen);
+            //         });
+
+            //         // Show the main content container
+            //         containerToDisplay.style.display = 'block';
+            //     } catch (error) {
+            //         console.error('Error fetching stories:', error);
+            //     }
+            // };
+            // Load stories when the page is loaded
+            // window.onload = async () => {
+            //     const storedPennss = JSON.parse(localStorage.getItem('pennss')) || [];
+            //     const pennss = storedPennss.length ? storedPennss : await fetchPennss();
+
+            //     // Display existing pens
+            //     pennss.forEach((pen) => {
+            //         addPen(pen);
+            //     });
+
+            //     // Show the main content container
+            //     containerToDisplay.style.display = 'block';
+            // };
+            window.onload = async () => {
+                try {
+                    const response = await fetch('/pennn/all'); // Replace '/pennn/all' with your actual endpoint to fetch all pens
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+
+                    const pens = await response.json();
+
+                    pens.forEach((pen) => {
+                        addPen(pen); // This function adds the pen to the UI
+
+                        // Update the like count for each pen
+                        const likeButton = document.querySelector(`#pen-${pen._id} .like-button`);
+                        if (likeButton) {
+                            const likeCountElement = likeButton.querySelector('.action');
+                            likeCountElement.textContent = `Like (${pen.likes})`;
+                        }
+                        // Update the share count for each pen
+                        const shareButton = document.querySelector(`#pen-${pen._id} .share-button`);
+                        if (shareButton) {
+                            const shareCountElement = shareButton.querySelector('.action');
+                            shareCountElement.textContent = `Share (${pen.shares})`;
+                        }
+                    });
+
+
+                    // Show the main content container
+                    containerToDisplay.style.display = 'block';
+
+                } catch (error) {
+                    console.error('Error fetching pens:', error);
+                }
+            };
+
+            // Function to open the share links popup
+            function openSharePopup() {
+                sharePopup.style.display = 'block';
+            }
+
+            // Function to close the share links popup
+            function closeSharePopup() {
+                sharePopup.style.display = 'none';
+            }
+
+            // Function to toggle like
+            function toggleLike(button) {
+                const likeAction = button.querySelector('.action');
+
+                // Toggle the like status
+                if (likeAction.textContent === 'Like') {
+                    likeAction.textContent = 'Liked';
+                    button.style.backgroundColor = '#ff6b6b'; // Liked color
+                } else {
+                    likeAction.textContent = 'Like';
+                    button.style.backgroundColor = '#ad7442'; // Default color
+                }
+            }
+
+
+
+
+            // Function to report a story
+            function reportStory() {
+                alert('Story reported. Thank you for your feedback.');
+            }
+
+            // Simulate the story creation time (you can replace this with the actual time)
+            const storyTime = new Date();
+        </script> -->
+        <div id="shareModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <h2>Share this pen</h2>
+        <div class="share-options">
+            <a href="#" id="whatsapp-share" class="share-link">Share on WhatsApp</a>
+            <a href="#" id="facebook-share" class="share-link">Share on Facebook</a>
+            <a href="#" id="instagram-share" class="share-link">Share on Instagram</a>
+        </div>
+        <button onclick="reportPen()">Report</button>
+    </div>
+</div>
+
+
+ <script> 
+        // JavaScript logic
+
+// Initializations
+const openPopupButton = document.getElementById('openPopupButton');
+const closePopupButton = document.getElementById('closePopupButton');
+const popupContainer = document.getElementById('popupContainer');
+const containerToDisplay = document.getElementById('container-to-display');
+const storyContainer = document.getElementById('story-container');
+const postForm = document.getElementById('post-form');
+const sharePopup = document.getElementById('sharePopup');
+
+// Show the main content container
+containerToDisplay.style.display = 'block';
+
+// Function to open the popup for posting stories
+function openPopup() {
+    popupContainer.style.display = 'block';
+}
+
+// Function to close the popup
+function closePopup() {
+    popupContainer.style.display = 'none';
+}
+
+// Event listeners
+openPopupButton.addEventListener('click', openPopup);
+closePopupButton.addEventListener('click', closePopup);
+
+// Function to fetch stories from the server and display them on the page
+async function fetchStories() {
+    try {
+        const response = await fetch('/pennn/all');                              
+        // Log the response for debugging
+        console.log('Response:', response);
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch stories');
+        }
+
+        const pens = await response.json();
+        // Log pens data for debugging
+        console.log('Pens:', pens);
+
+        // Display each pen using the addPen function
+        pens.forEach(addPen);
+
+    } catch (error) {
+        console.error('Error fetching stories:', error);
+    }
+}
+
+function addPen(pen) {
+    // Create a div for the pen
+    const penDiv = document.createElement('div');
+    penDiv.id = `pen-${pen._id}`;
+    penDiv.classList.add('pen');
+    
+    // Render the pen's text and buttons
+    penDiv.innerHTML = `
+        <p class="pen-text">${pen.text}</p>
+        <div class="buttons">
+            <button class="like-button" onclick="likePen('${pen._id}')">
+                ❤️ Like(${pen.likes})
+            </button>
+            <button class="share-button" onclick="sharePen('${pen._id}')">
+                🔁 Share(${pen.shares})
+            </button>
+            <button class="comment-button" onclick="toggleComment('${pen._id}')">
+                💬 Comment
+            </button>
+        </div>
+        <div class="comment-section" style="display: none;">
+            <textarea class="comment-input" placeholder="Write a comment..."></textarea>
+            <button class="comment-button" onclick="submitComment('${pen._id}')">
+                Submit
+            </button>
+            <div class="comments"></div>
+        </div>
+    `;
+
+  // Append the new pen to the story container
+    const storyContainer = document.getElementById('story-container');
+    storyContainer.appendChild(penDiv);
+
+    // Display existing comments for the pen
+    if (pen.comments && pen.comments.length > 0) {
+        const commentsContainer = penDiv.querySelector('.comments');
+        pen.comments.forEach(comment => {
+            const commentDiv = document.createElement('div');
+            commentDiv.textContent = comment.text;
+            commentDiv.classList.add('comment');
+            commentsContainer.appendChild(commentDiv);
+        });
+    }
+}
+
+
+// Function to handle form submission for posting new stories
+postForm.addEventListener('submit', async (e) => {
+    e.preventDefault(); // Prevent form submission
+    const postText = document.getElementById('post-text').value.trim();
+
+    if (postText) {
+        try {
+            const response = await fetch('/pennn', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ text: postText }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to post story');
+            }
+
+            const newPen = await response.json();
+            addPen(newPen); // Add the new story to the UI
+            document.getElementById('post-text').value = ''; // Clear input
+            closePopup(); // Close popup after posting
+
+        } catch (error) {
+            console.error('Error posting story:', error);
+        }
+    } else {
+        console.log('Post text is empty');
+    }
+});
+
+function likePen(penId) {
+    fetch(`/pennn/like/${penId}`, {
+        method: 'POST',
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Failed to like pen: ${response.statusText}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            const penDiv = document.getElementById(`pen-${penId}`);
+            if (penDiv) {
+                const likeButton = penDiv.querySelector('.like-button');
+                likeButton.textContent = `❤️ Like(${data.likes})`;
+            }
+        })
+        .catch(error => console.error('Error liking pen:', error));
+}
+
+async function sharePen(penId) {
+    try {
+        // Make a POST request to the server's share endpoint
+        const response = await fetch(`/pennn/share/${penId}`, {
+            method: 'POST',
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            const updatedSharesCount = data.shares;
+
+            // Update the share count on the UI immediately
+            const shareButton = document.querySelector(`.pen[data-pen-id="${penId}"] .share-button`);
+            if (shareButton) {
+                shareButton.textContent = `🔁 Share(${updatedSharesCount})`;
+            }
+
+            console.log('Successfully shared pen and updated share count:', updatedSharesCount);
+
+            // Show the share modal
+            const modal = document.getElementById('shareModal');
+            modal.style.display = 'block';
+
+            // Set up sharing links
+            updateSharingLinks(penId);
+        } else {
+            console.error('Failed to share pen:', response.statusText);
+        }
+    } catch (error) {
+        console.error('Error sharing pen:', error);
+    }
+}
+
+// Function to close the share modal
+function closeModal() {
+    const modal = document.getElementById('shareModal');
+    if (modal) {
+        modal.style.display = 'none';
+    }
+}
+
+function updateSharingLinks(penId) {
+    const penUrl = window.location.href; // Current page URL
+    const whatsappShare = document.getElementById('whatsapp-share');
+    const facebookShare = document.getElementById('facebook-share');
+    const instagramShare = document.getElementById('instagram-share');
+    
+    // Update sharing links with penUrl
+    whatsappShare.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(penUrl)}`;
+    facebookShare.href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(penUrl)}`;
+    instagramShare.href = `https://www.instagram.com/`;
+
+    // Add event listeners for each share link
+    whatsappShare.addEventListener('click', closeModal);
+    facebookShare.addEventListener('click', closeModal);
+    instagramShare.addEventListener('click', closeModal);
+}
+
+
+
+
+// Function to toggle the visibility of the comment section
+//function toggleComment(penId) {
+   // const penElement = document.getElementById(`pen-${penId}`);
+   // const commentSection = penElement.querySelector('.comment-section');
+
+    // Toggle the display of the comment section
+  //  if (commentSection.style.display === 'none') {
+      //  commentSection.style.display = 'block';
+   // } else {
+   //     commentSection.style.display = 'none';
+  //  }
+//}
+
+function toggleComment(penId) {
+    // Get the pen element using the pen ID
+    const penElement = document.getElementById(`pen-${penId}`);
+    
+    if (!penElement) {
+        console.error(`Pen element with ID pen-${penId} not found.`);
+        return;
+    }
+
+    // Find the comment section within the pen element
+    const commentSection = penElement.querySelector('.comment-section');
+    
+    if (!commentSection) {
+        console.error(`Comment section not found for pen ID: ${penId}`);
+        return;
+    }
+
+    // Debug logs to check the display style before toggling
+    console.log(`Before toggle: commentSection display = ${commentSection.style.display || 'not set'}`);
+    
+    // Toggle the display of the comment section between 'none' and 'block'
+    if (commentSection.style.display === 'none' || !commentSection.style.display) {
+        commentSection.style.display = 'block';
+    } else {
+        commentSection.style.display = 'none';
+    }
+
+    // Debug logs to check the display style after toggling
+    console.log(`After toggle: commentSection display = ${commentSection.style.display}`);
+}
+
+async function submitComment(penId) {
+    const penElement = document.getElementById(`pen-${penId}`);
+    const commentInput = penElement.querySelector('.comment-input');
+    const commentText = commentInput.value.trim();
+
+    if (!commentText) {
+        console.log('Comment text is empty.');
+        return;
+    }
+
+    try {
+        const response = await fetch(`/pennn/comment/${penId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ comment: commentText }),
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            // Clear the comment input
+            commentInput.value = '';
+
+            // Create a new div for the comment
+            const newCommentDiv = document.createElement('div');
+            newCommentDiv.classList.add('comment');
+            newCommentDiv.textContent = data.text; // Display the comment text
+
+            // Append the new comment to the comments container
+            const commentsContainer = penElement.querySelector('.comments');
+            commentsContainer.appendChild(newCommentDiv);
+        } else {
+            console.error('Failed to add comment:', response.statusText);
+        }
+    } catch (error) {
+        console.error('Error adding comment:', error);
+    }
+}
+
+
+// Fetch stories on page load
+window.onload = fetchStories;
+ </script> 
+</body>
+
+</html>

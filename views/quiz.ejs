@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>
+        <%- quiz %>
+    </title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link href="/img/bg4.png" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=DM+Serif+Display:ital@1&family=Lilita+One&family=Poppins:wght@300;600&family=Rubik:wght@300&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="/css/style.css" rel="stylesheet">
+
+    <style>
+        /* Header */
+        .header7 {
+            background-color: #ab744a;
+            padding: 15px 0;
+            text-align: center;
+        }
+
+        .header7 h1 {
+            color: #fff;
+            font-size: 28px;
+        }
+
+        h1 {
+            color: #05090c;
+            font-weight: bold;
+        }
+
+        /* Container */
+        .container7 {
+            margin-top: 20px;
+            text-align: left;
+            margin: 0px;
+        }
+
+        .radio-custom {
+            background-color: #ab744a;
+            cursor: pointer;
+        }
+
+        input[type="radio"]:checked+label {
+            color: rgb(6, 6, 11);
+            /* Change the color to your desired color */
+        }
+
+
+
+        /* Clickable options */
+        .clickable-options7 {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            /* justify-content: center; */
+            margin: 0;
+
+        }
+
+        .clickable-option7 {
+            cursor: pointer;
+            padding: 13px;
+            background-color: #fff;
+            border: 2px solid #ab744a;
+            color: #05090c;
+            border-radius: 30px;
+            margin-left: 10px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            display: inline-block;
+            transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out, color 0.3s ease-in-out;
+            font-size: 15px;
+        }
+
+        .clickable-option7.selected {
+            background-color: #ab744a;
+            color: #fff;
+            border-color: #ab744a;
+        }
+
+        .clickable-option7:hover {
+            background-color: #ab744a;
+            color: #fff;
+            border-color: #ab744a;
+
+        }
+
+        .clickable-options7.clickable-option7 input[type="radio"] {
+            color: rgb(6, 6, 11);
+        }
+
+        /* Radio buttons */
+
+
+        /* Submit button */
+        .submit-button {
+            background-color: #ab744a;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease-in-out;
+            align-items: center;
+            float: right;
+            margin-right: 700px;
+        }
+
+        .submit-button:hover {
+            background-color: #ab744a;
+        }
+
+        /* Result */
+        #result {
+            margin-top: 50px;
+            margin-left: 400px;
+            align-items: center;
+        }
+
+        /* Remedies link */
+        .remedies-link {
+            display: block;
+            float: right;
+            margin-top: 40px;
+            font-size: 18px;
+            color: #05090c;
+            text-decoration: none;
+            margin-left: 1000px;
+
+        }
+
+        .remedies-link:hover {
+            text-decoration: underline;
+        }
+
+        .hovered {
+            /* Define the hover color for selected options here */
+            background-color: #ab744a;
+            color: #fff;
+            border-color: #ab744a;
+        }
+
+        h2 {
+            font-size: 21px;
+            color: #05090c;
+        }
+    </style>
+    <script>
+        var currentQuestion = 1;
+        var totalQuestions = 21; // Change this to the total number of questions
+        var scores = {
+            depression: 0,
+            anxiety: 0,
+            stress: 0
+        };
+
+        function displayQuestion(questionNumber) {
+            // Hide all questions
+            for (var i = 1; i <= totalQuestions; i++) {
+                var question = document.getElementById(`question${i}`);
+                if (question) {
+                    question.style.display = "none";
+                }
+            }
+
+            // Show the current question
+            var currentQuestionElement = document.getElementById(`question${questionNumber}`);
+            if (currentQuestionElement) {
+                currentQuestionElement.style.display = "block";
+            }
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < totalQuestions) {
+                currentQuestion++;
+                displayQuestion(currentQuestion);
+            } else {
+                calculateDASS();
+            }
+        }
+
+        function calculateDASS() {
+            // // Reset scores
+            // scores.depression = 0;
+            // scores.anxiety = 0;
+            // scores.stress = 0;
+            // Add the scores to the assessmentData object
+            assessmentData.depression = scores.depression;
+            assessmentData.anxiety = scores.anxiety;
+            assessmentData.stress = scores.stress;
+
+            // Calculate scores for each question
+            for (var i = 1; i <= totalQuestions; i++) {
+                var selectedOption = document.querySelector(`#question${i} input[type="radio"]:checked`);
+                if (selectedOption) {
+                    var value = parseInt(selectedOption.value);
+                    if (i <= 7) {
+                        scores.depression += value;
+                    } else if (i >= 8 && i <= 14) {
+                        scores.anxiety += value;
+                    } else if (i >= 15 && i <= 21) {
+                        scores.stress += value;
+                    }
+                }
+            }
+
+            // Multiply the scores by 2
+            scores.depression *= 2;
+            scores.anxiety *= 2;
+            scores.stress *= 2;
+
+            // Determine the result
+            var result = "<h2>You are experiencing Normal levels of depression, anxiety, and stress.</h2></h2>";
+            if (scores.depression >= 10 || scores.anxiety >= 8 || scores.stress >= 15) {
+                result = "<h2> You are experiencing Mild levels of depression, anxiety, and stress.</h2></h2>";
+            }
+            if (scores.depression >= 14 || scores.anxiety >= 10 || scores.stress >= 19) {
+                result = "<h2> You are experiencing Moderate levels of depression, anxiety, and stress.</h2></h2>";
+            }
+            if (scores.depression >= 21 || scores.anxiety >= 15 || scores.stress >= 26) {
+                result = "<h2>You are experiencing Severe levels of depression, anxiety, and stress.</h2></h2>";
+            }
+            if (scores.depression >= 28 || scores.anxiety >= 20 || scores.stress >= 34) {
+                result = "<h2> You are experiencing Extremely Severe levels of depression, anxiety, and stress.</h2></h2>";
+            }
+
+            // Display the result
+            var resultElement = document.getElementById("result");
+            resultElement.innerHTML = result;
+            resultElement.style.whiteSpace = "nowrap";
+        }
+        // Define your assessment data
+        const assessmentData = {
+            // Include the assessment data you want to send to the server
+            score: 90, // Example score
+            // Other assessment data properties
+        };
+
+        // Initialize the assessment by displaying the first question
+        displayQuestion(currentQuestion);
+
+        function toggleSelection(element) {
+            element.classList.toggle("selected");
+        }
+        // Send data to the server for storage
+        fetch('/quiz', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(assessmentData),
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Assessment data saved:', data);
+            })
+            .catch(error => {
+                console.error('Error saving assessment data:', error);
+            });
+
+    </script>
+
+</head>
+
+<body>
+    <%- include('layout/header.ejs') %>
+        <br />
+        <div class="header7">
+            <h1 style="color: #fff;">DASS-21 Assessment</h1>
+        </div><br />
+        <h1 style="align-items: center;font-size:28px;">For each question below, please click on the option that best
+            describes how you
+            have felt over the past week:</h1>
+
+        <br />
+        <div class="container7">
+
+            <div id="question1" style="margin-left: 260px;">
+                <label>
+                    <h2 style="margin: 0px;">1.I found it hard to wind down.</h2><br />
+                </label><br>
+                <label class="clickable-option7">
+                    <input type="radio" name="question1" value="0" onclick="toggleSelected('option1_0')"
+                        class="radio-custom">
+                    NOT AT ALL
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question1" value="1" onclick="toggleSelected('option1_1')"
+                        class="radio-custom">
+                    SEVERAL DAYS
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question1" value="2" onclick="toggleSelected('option1_2')"
+                        class="radio-custom">
+                    MORE THAN HALF THE DAYS
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question1" value="3" onclick="toggleSelected('option1_3')"
+                        class="radio-custom">
+                    NEARLY EVERY DAY
+                </label>
+            </div>
+
+            <div id="question2" style="margin-left: 260px;">
+                <label>
+                    <h2 style="margin: 0px;">2.I felt that I had nothing to look forward to.</h2><br />
+                </label><br>
+                <label class="clickable-option7">
+                    <input type="radio" name="question2" value="0" onclick="toggleSelected('option2_0')"
+                        class="radio-custom">
+                    NOT AT ALL
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question2" value="1" onclick="toggleSelected('option2_1')"
+                        class="radio-custom">
+                    SEVERAL DAYS
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question2" value="2" onclick="toggleSelected('option2_2')"
+                        class="radio-custom">
+                    MORE THAN HALF THE DAYS
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question2" value="3" onclick="toggleSelected('option2_3')"
+                        class="radio-custom">
+                    NEARLY EVERY DAY
+                </label>
+            </div>
+            <div id="question3" style="margin-left: 260px;">
+                <label>
+                    <h2 style="margin: 0px;">3.I found it difficult to work up the initiative to do things.</h2><br />
+                </label><br>
+                <label class="clickable-option7">
+                    <input type="radio" name="question3" value="0" onclick="toggleSelected('option3_0')"
+                        class="radio-custom">
+                    NOT AT ALL
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question3" value="1" onclick="toggleSelected('option3_1')"
+                        class="radio-custom">
+                    SEVERAL DAYS
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question3" value="2" onclick="toggleSelected('option3_2')"
+                        class="radio-custom">
+                    MORE THAN HALF THE DAYS
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question3" value="3" onclick="toggleSelected('option3_3')"
+                        class="radio-custom">
+                    NEARLY EVERY DAY
+                </label>
+            </div>
+            <div id="question4" style="margin-left: 260px;">
+                <label>
+                    <h2 style="margin: 0px;">4.I felt that I was close to panic.</h2><br />
+                </label><br>
+                <label class="clickable-option7">
+                    <input type="radio" name="question4" value="0" onclick="toggleSelected('option4_0')"
+                        class="radio-custom">
+                    NOT AT ALL
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question4" value="1" onclick="toggleSelected('option4_1')"
+                        class="radio-custom">
+                    SEVERAL DAYS
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question4" value="2" onclick="toggleSelected('option4_2')"
+                        class="radio-custom">
+                    MORE THAN HALF THE DAYS
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question4" value="3" onclick="toggleSelected('option4_3')"
+                        class="radio-custom">
+                    NEARLY EVERY DAY
+                </label>
+            </div>
+            <div id="question5" style="margin-left: 260px;">
+                <label>
+                    <h2 style="margin: 0px;">5.I felt down-hearted and blue.</h2><br />
+                </label><br>
+                <label class="clickable-option7">
+                    <input type="radio" name="question5" value="0" onclick="toggleSelected('option5_0')"
+                        class="radio-custom">
+                    NOT AT ALL
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question5" value="1" onclick="toggleSelected('option5_1')"
+                        class="radio-custom">
+                    SEVERAL DAYS
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question5" value="2" onclick="toggleSelected('option5_2')"
+                        class="radio-custom">
+                    MORE THAN HALF THE DAYS
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question5" value="3" onclick="toggleSelected('option5_3')"
+                        class="radio-custom">
+                    NEARLY EVERY DAY
+                </label>
+            </div>
+            <div id="question6" style="margin-left: 260px;">
+                <label>
+                    <h2 style="margin: 0px;">6.I was unable to become enthusiastic about anything.</h2><br />
+                </label><br>
+                <label class="clickable-option7">
+                    <input type="radio" name="question6" value="0" onclick="toggleSelected('option6_0')"
+                        class="radio-custom">
+                    NOT AT ALL
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question6" value="1" onclick="toggleSelected('option6_1')"
+                        class="radio-custom">
+                    SEVERAL DAYS
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question6" value="2" onclick="toggleSelected('option6_2')"
+                        class="radio-custom">
+                    MORE THAN HALF THE DAYS
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question6" value="3" onclick="toggleSelected('option6_3')"
+                        class="radio-custom">
+                    NEARLY EVERY DAY
+                </label>
+            </div>
+            <div id="question7" style="margin-left: 260px;">
+                <label>
+                    <h2 style="margin: 0px;">7.I felt I wasn't worth much as a person.</h2><br />
+                </label><br>
+                <label class="clickable-option7">
+                    <input type="radio" name="question7" value="0" onclick="toggleSelected('option7_0')"
+                        class="radio-custom">
+                    NOT AT ALL
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question7" value="1" onclick="toggleSelected('option7_1')"
+                        class="radio-custom">
+                    SEVERAL DAYS
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question7" value="2" onclick="toggleSelected('option7_2')"
+                        class="radio-custom">
+                    MORE THAN HALF THE DAYS
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question7" value="3" onclick="toggleSelected('option7_3')"
+                        class="radio-custom">
+                    NEARLY EVERY DAY
+                </label>
+            </div>
+            <div id="question8" style="margin-left: 260px;">
+                <label>
+                    <h2 style="margin: 0px;">8.I felt scared without any good reason.</h2><br />
+                </label><br>
+                <label class="clickable-option7">
+                    <input type="radio" name="question8" value="0" onclick="toggleSelected('option8_0')"
+                        class="radio-custom">
+                    NOT AT ALL
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question8" value="1" onclick="toggleSelected('option8_1')"
+                        class="radio-custom">
+                    SEVERAL DAYS
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question8" value="2" onclick="toggleSelected('option8_2')"
+                        class="radio-custom">
+                    MORE THAN HALF THE DAYS
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question8" value="3" onclick="toggleSelected('option8_3')"
+                        class="radio-custom">
+                    NEARLY EVERY DAY
+                </label>
+            </div>
+            <div id="question9" style="margin-left: 260px;">
+                <label>
+                    <h2 style="margin: 0px;">9.I was aware of the action of my heart in the absence of physical
+                        exertion.
+                    </h2>
+                </label><br>
+                <label class="clickable-option7">
+                    <input type="radio" name="question9" value="0" onclick="toggleSelected('option9_0')"
+                        class="radio-custom">
+                    NOT AT ALL
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question9" value="1" onclick="toggleSelected('option9_1')"
+                        class="radio-custom">
+                    SEVERAL DAYS
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question9" value="2" onclick="toggleSelected('option9_2')"
+                        class="radio-custom">
+                    MORE THAN HALF THE DAYS
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question9" value="3" onclick="toggleSelected('option9_3')"
+                        class="radio-custom">
+                    NEARLY EVERY DAY
+                </label>
+            </div>
+            <div id="question10" style="margin-left: 260px;">
+                <label>
+                    <h2 style="margin: 0px;">10.I was aware of dryness of my mouth.</h2><br />
+                </label><br>
+                <label class="clickable-option7">
+                    <input type="radio" name="question10" value="0" onclick="toggleSelected('option10_0')"
+                        class="radio-custom">
+                    NOT AT ALL
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question10" value="1" onclick="toggleSelected('option10_1')"
+                        class="radio-custom">
+                    SEVERAL DAYS
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question10" value="2" onclick="toggleSelected('option10_2')"
+                        class="radio-custom">
+                    MORE THAN HALF THE DAYS
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question10" value="3" onclick="toggleSelected('option10_3')"
+                        class="radio-custom">
+                    NEARLY EVERY DAY
+                </label>
+            </div>
+            <div id="question11" style="margin-left: 260px;">
+                <label>
+                    <h2 style="margin: 0px;">11.I experienced breathing difficulty (e.g., excessively rapid breathing,
+                        breathlessness in the absence of physical exertion).</h2><br />
+                </label><br>
+                <label class="clickable-option7">
+                    <input type="radio" name="question11" value="0" onclick="toggleSelected('option11_0')"
+                        class="radio-custom">
+                    NOT AT ALL
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question11" value="1" onclick="toggleSelected('option11_1')"
+                        class="radio-custom">
+                    SEVERAL DAYS
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question11" value="2" onclick="toggleSelected('option11_2')"
+                        class="radio-custom">
+                    MORE THAN HALF THE DAYS
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question11" value="3" onclick="toggleSelected('option11_3')"
+                        class="radio-custom">
+                    NEARLY EVERY DAY
+                </label>
+            </div>
+            <div id="question12" style="margin-left: 260px;">
+                <label>
+                    <h2 style="margin: 0px;">12.I found it hard to relax.</h2><br />
+                </label><br>
+                <label class="clickable-option7">
+                    <input type="radio" name="question12" value="0" onclick="toggleSelected('option12_0')"
+                        class="radio-custom">
+                    NOT AT ALL
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question12" value="1" onclick="toggleSelected('option12_1')"
+                        class="radio-custom">
+                    SEVERAL DAYS
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question12" value="2" onclick="toggleSelected('option12_2')"
+                        class="radio-custom">
+                    MORE THAN HALF THE DAYS
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question12" value="3" onclick="toggleSelected('option12_3')"
+                        class="radio-custom">
+                    NEARLY EVERY DAY
+                </label>
+            </div>
+            <div id="question13" style="margin-left: 260px;">
+                <label>
+                    <h2 style="margin: 0px;">13.I was worried about situations in which I might panic and make a fool of
+                        myself.
+                    </h2><br />
+                </label><br>
+                <label class="clickable-option7">
+                    <input type="radio" name="question13" value="0" onclick="toggleSelected('option13_0')"
+                        class="radio-custom">
+                    NOT AT ALL
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question13" value="1" onclick="toggleSelected('option13_1')"
+                        class="radio-custom">
+                    SEVERAL DAYS
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question13" value="2" onclick="toggleSelected('option13_2')"
+                        class="radio-custom">
+                    MORE THAN HALF THE DAYS
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question13" value="3" onclick="toggleSelected('option13_3')"
+                        class="radio-custom">
+                    NEARLY EVERY DAY
+                </label>
+            </div>
+            <div id="question14" style="margin-left: 260px;">
+                <label>
+                    <h2 style="margin: 0px;">14.I felt that I was pretty frightened.</h2><br />
+                </label><br>
+                <label class="clickable-option7">
+                    <input type="radio" name="question14" value="0" onclick="toggleSelected('option14_0')"
+                        class="radio-custom">
+                    NOT AT ALL
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question14" value="1" onclick="toggleSelected('option14_1')"
+                        class="radio-custom">
+                    SEVERAL DAYS
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question14" value="2" onclick="toggleSelected('option14_2')"
+                        class="radio-custom">
+                    MORE THAN HALF THE DAYS
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question14" value="3" onclick="toggleSelected('option14_3')"
+                        class="radio-custom">
+                    NEARLY EVERY DAY
+                </label>
+            </div>
+            <div id="question15" style="margin-left: 260px;">
+                <label>
+                    <h2 style="margin: 0px;">15.I found it difficult to relax.</h2><br />
+                </label><br>
+                <label class="clickable-option7">
+                    <input type="radio" name="question15" value="0" onclick="toggleSelected('option15_0')"
+                        class="radio-custom">
+                    NOT AT ALL
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question15" value="1" onclick="toggleSelected('option15_1')"
+                        class="radio-custom">
+                    SEVERAL DAYS
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question15" value="2" onclick="toggleSelected('option15_2')"
+                        class="radio-custom">
+                    MORE THAN HALF THE DAYS
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question15" value="3" onclick="toggleSelected('option15_3')"
+                        class="radio-custom">
+                    NEARLY EVERY DAY
+                </label>
+            </div>
+            <div id="question16" style="margin-left: 260px;">
+                <label>
+                    <h2 style="margin: 0px;">16.I was intolerant of anything that kept me from getting on with what I
+                        was
+                        doing.
+                    </h2><br />
+                </label><br>
+                <label class="clickable-option7">
+                    <input type="radio" name="question16" value="0" onclick="toggleSelected('option16_0')"
+                        class="radio-custom">
+                    NOT AT ALL
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question16" value="1" onclick="toggleSelected('option16_1')"
+                        class="radio-custom">
+                    SEVERAL DAYS
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question16" value="2" onclick="toggleSelected('option16_2')"
+                        class="radio-custom">
+                    MORE THAN HALF THE DAYS
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question16" value="3" onclick="toggleSelected('option16_3')"
+                        class="radio-custom">
+                    NEARLY EVERY DAY
+                </label>
+            </div>
+            <div id="question17" style="margin-left: 260px;">
+                <label>
+                    <h2 style="margin: 0px;">17.I felt that I was rather touchy.</h2><br />
+                </label><br>
+                <label class="clickable-option7">
+                    <input type="radio" name="question17" value="0" onclick="toggleSelected('option17_0')"
+                        class="radio-custom">
+                    NOT AT ALL
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question17" value="1" onclick="toggleSelected('option17_1')"
+                        class="radio-custom">
+                    SEVERAL DAYS
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question17" value="2" onclick="toggleSelected('option17_2')"
+                        class="radio-custom">
+                    MORE THAN HALF THE DAYS
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question17" value="3" onclick="toggleSelected('option17_3')"
+                        class="radio-custom">
+                    NEARLY EVERY DAY
+                </label>
+            </div>
+            <div id="question18" style="margin-left: 260px;">
+                <label>
+                    <h2 style="margin: 0px;">18.I couldn't seem to experience any positive feeling at all.</h2><br />
+                </label><br>
+                <label class="clickable-option7">
+                    <input type="radio" name="question18" value="0" onclick="toggleSelected('option18_0')"
+                        class="radio-custom">
+                    NOT AT ALL
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question18" value="1" onclick="toggleSelected('option18_1')"
+                        class="radio-custom">
+                    SEVERAL DAYS
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question18" value="2" onclick="toggleSelected('option18_2')"
+                        class="radio-custom">
+                    MORE THAN HALF THE DAYS
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question18" value="3" onclick="toggleSelected('option18_3')"
+                        class="radio-custom">
+                    NEARLY EVERY DAY
+                </label>
+            </div>
+            <div id="question19" style="margin-left: 260px;">
+                <label>
+                    <h2 style="margin: 0px;">19.I experienced trembling.</h2><br />
+                </label><br>
+                <label class="clickable-option7">
+                    <input type="radio" name="question19" value="0" onclick="toggleSelected('option19_0')"
+                        class="radio-custom">
+                    NOT AT ALL
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question19" value="1" onclick="toggleSelected('option19_1')"
+                        class="radio-custom">
+                    SEVERAL DAYS
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question19" value="2" onclick="toggleSelected('option19_2')"
+                        class="radio-custom">
+                    MORE THAN HALF THE DAYS
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question19" value="3" onclick="toggleSelected('option19_3')"
+                        class="radio-custom">
+                    NEARLY EVERY DAY
+                </label>
+            </div>
+
+            <div id="question20" style="margin-left: 260px;">
+                <label>
+                    <h2 style="margin: 0px;">20.I feel nervous.</h2><br />
+                </label><br>
+                <label class="clickable-option7">
+                    <input type="radio" name="question20" value="0" onclick="toggleSelected('option20_0')"
+                        class="radio-custom">
+                    NOT AT ALL
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question20" value="1" onclick="toggleSelected('option20_1')"
+                        class="radio-custom">
+                    SEVERAL DAYS
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question20" value="2" onclick="toggleSelected('option20_2')"
+                        class="radio-custom">
+                    MORE THAN HALF THE DAYS
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question20" value="3" onclick="toggleSelected('option20_3')"
+                        class="radio-custom">
+                    NEARLY EVERY DAY
+                </label>
+            </div>
+
+
+            <div id="question21" style="margin-left: 260px;">
+                <label>
+                    <h2 style="margin: 0px;">21.I found myself getting agitated.</h2>
+                </label><br />
+                <label class="clickable-option7" style="margin-top: 20px;">
+                    <input type="radio" name="question21" value="0" onclick="toggleSelected('option21_0')"
+                        class="radio-custom">
+                    NOT AT ALL
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question21" value="1" onclick="toggleSelected('option21_1')"
+                        class="radio-custom">
+                    SEVERAL DAYS
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question21" value="2" onclick="toggleSelected('option21_2')"
+                        class="radio-custom">
+                    MORE THAN HALF THE DAYS
+                </label>
+                <label class="clickable-option7">
+                    <input type="radio" name="question21" value="3" onclick="toggleSelected('option21_3')"
+                        class="radio-custom">
+                    NEARLY EVERY DAY
+                </label>
+            </div>
+        </div>
+        </div>
+        <button type="submit-button" class="submit-button" onclick="calculateDASS()">Submit</button>
+        <div id="result"></div>
+
+        <!-- <h1 style="margin-left: 600px;"><a href="resource.html">Click here for remedies</a></h1>
+        </div> -->
+
+        </div>
+        <%- include('layout/footer.ejs') %>
+</body>
+
+</html>
